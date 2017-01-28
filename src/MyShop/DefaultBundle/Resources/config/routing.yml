@@ -1,0 +1,12 @@
+myshop.product_info:
+    path:     /{name}
+    defaults: { _controller: MyShopDefaultBundle:Default:showProduct }
+    methods: [GET]
+    #requirements:
+
+
+myshop.main_page:
+    path:    / 
+    defaults: { _controller: MyShopDefaultBundle:Default:index }
+    
+
