@@ -43,6 +43,22 @@ class Product
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="comments", type="text")
+     */
+    private $comments;
+
+    /**
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="MyShop\DefaultBundle\Entity\Category", inversedBy="productList") // указание связей: прямой и обратной
+     * @ORM\JoinColumn(name="id_category", referencedColumnName="id") // указание доп id для связи таблиц
+    */
+    private $category;
+
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreatedAt", type="datetime")
@@ -54,7 +70,6 @@ class Product
         $date = new \DateTime("now");
         $this->setDateCreatedAt($date);
     }
-
 
     /**
      * Get id
@@ -139,6 +154,30 @@ class Product
     }
 
     /**
+     * Set comments
+     *
+     * @param string $comments
+     *
+     * @return Product
+     */
+    public function setComment($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comments;
+    }
+
+    /**
      * Set dateCreatedAt
      *
      * @param \DateTime $dateCreatedAt
@@ -161,5 +200,22 @@ class Product
     {
         return $this->dateCreatedAt;
     }
+
+    /**
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
 }
 

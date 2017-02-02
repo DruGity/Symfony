@@ -1,0 +1,5 @@
+<h2>Редактирование категории</h2>
+<form action="{{ path("my_shop_admin.category_edit", {id_category:category.id}) }}" method="POST">
+    {{ form_widget(form) }}
+    <input type="submit"/>
+</form>

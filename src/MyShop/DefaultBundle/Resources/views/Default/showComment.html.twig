@@ -1,0 +1,9 @@
+{% extends "@MyShopDefault/Default/layout.html.twig" %}
+
+
+
+{% block body %}
+    <h2> Отзыв о товаре: {{ comment.getModel()  }} </h2>
+    
+    <b>Отзыв: </b>{{ comment.getComment() }}
+{% endblock %}

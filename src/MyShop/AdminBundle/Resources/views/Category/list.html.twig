@@ -1,0 +1,16 @@
+<a href="{{ path("my_shop_admin.category_add") }}">Добавить категорию</a>
+<ul>
+{% for cat in categoryList %}
+    <table>
+    	
+    	
+    	    <li>		
+    			<a href="{{ path("my_shop_admin.product_list_by_category", {id_category:cat.id}) }}">{{ cat.name }}</a> 
+    		</li>		
+    	
+				<a href="{{ path("my_shop_admin.category_delete", {id_category:cat.id}) }}"><b>Удалить категорию</b></a> <br/>
+				<a href="{{ path("my_shop_admin.category_edit", {id_category:cat.id}) }}"><b>Редактировать категорию</b></a> 
+    </table>
+    <br/>
+{% endfor %}
+</ul>

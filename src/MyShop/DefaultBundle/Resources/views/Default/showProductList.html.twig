@@ -1,0 +1,22 @@
+{% extends "@MyShopDefault/Default/layout.html.twig" %}
+
+{% block body %}
+    <h2>Список товаров</h2>
+    <ul>
+    {% for product in productList %}
+        <li>
+
+            {{ product.getModel() }} <b>{{ product.getPrice() }}</b> 
+            <br />Категория: <b>{{product.getCategory().getName()}}</b>
+            <br />
+            <a href="{{ path("myshop.product_info", {id:product.getId()}) }}">Характеристики товара</a>
+            <br />
+            <a href="{{ path("myshop.product_comments", {id:product.getId()}) }}">Отзывы о товаре</a> 
+        </li>
+        <br />
+    {% else %}
+        Добавте Продукты!
+    {% endfor %}
+    </ul>
+
+{% endblock %}
