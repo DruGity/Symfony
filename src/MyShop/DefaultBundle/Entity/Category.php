@@ -47,6 +47,8 @@ class Category
         $this->productList[] = $product; // добавление в массив еще одного элемента
     }
 
+   
+
     /**
      * Get id
      *

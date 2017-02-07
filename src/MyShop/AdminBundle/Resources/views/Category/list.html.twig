@@ -1,3 +1,7 @@
+{% extends "@MyShopAdmin/layout.html.twig" %}
+{% block body %}
+
+
 <a href="{{ path("my_shop_admin.category_add") }}">Добавить категорию</a>
 <ul>
 {% for cat in categoryList %}
@@ -14,3 +18,4 @@
     <br/>
 {% endfor %}
 </ul>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "@MyShopDefault/Default/layout.html.twig" %}
+
+{% block body %}
+    <h2>Список Категорий</h2>
+    <ul>
+    {% for product in productList %}
+        <li>
+            <b>Категория:</b>{{product.getCategory().getName()}}
+            <br />
+            <b>Товар:</b>{{product.getModel()}}        
+            <br />
+        </li>
+        <br />
+    {% else %}
+         Категорий нет!
+    {% endfor %}
+    </ul>
+
+{% endblock %}

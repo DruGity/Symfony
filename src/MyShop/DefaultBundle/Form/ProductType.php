@@ -31,9 +31,9 @@ class ProductType extends AbstractType
                 'label' => "Комментарий товара"
             ])
             ->add('category', EntityType::class, [
-                "class" => "MyShopDefaultBundle:Category",
-                "choice_label" => "name",
-                "label" => "Категория"
+                "class" => "MyShopDefaultBundle:Category", // Варианты выпадающего списка
+                "choice_label" => "name",   // Выпадающий список
+                "label" => "Категория" // название перед выпадающим списком
             ])
         ;
     }

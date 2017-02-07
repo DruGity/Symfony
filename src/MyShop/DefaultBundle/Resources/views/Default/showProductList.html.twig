@@ -5,7 +5,6 @@
     <ul>
     {% for product in productList %}
         <li>
-
             {{ product.getModel() }} <b>{{ product.getPrice() }}</b> 
             <br />Категория: <b>{{product.getCategory().getName()}}</b>
             <br />
@@ -15,7 +14,7 @@
         </li>
         <br />
     {% else %}
-        Добавте Продукты!
+        Добавьте Продукты!
     {% endfor %}
     </ul>
 

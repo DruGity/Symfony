@@ -16,12 +16,6 @@ my_shop.admin.product_delete:
     requirements:
         id: \d+
 
-my_shop.admin.product_delete:
-    path:   /product/{id}/delete
-    defaults: { _controller: MyShopAdminBundle:Product:delete }
-    requirements:
-        id: \d+
-
 my_shop_admin.product_edit:
     path:   /product/{id}/edit
     defaults: { _controller: MyShopAdminBundle:Product:edit }
@@ -51,5 +45,29 @@ my_shop_admin.category_edit:
     defaults: { _controller: MyShopAdminBundle:Category:edit }
     requirements:
         id_category: \d+
+
+my_shop_admin.product_photo_add:
+    path:   /product/{idProduct}/photo/add
+    defaults: { _controller: MyShopAdminBundle:ProductPhoto:add }
+    requirements:
+        idProduct: \d+
+
+my_shop_admin.product_photo_list:
+    path:   /product/{idProduct}/photos
+    defaults: { _controller: MyShopAdminBundle:ProductPhoto:list }
+    requirements:
+        idProduct: \d+
+
+my_shop_admin.product_photo_delete:
+    path:   /product/{id}/photo/delete
+    defaults: { _controller: MyShopAdminBundle:ProductPhoto:delete }
+    requirements:
+        id: \d+
+
+my_shop_admin.product_photo_edit:
+    path:   /product/{id}/photo/edit
+    defaults: { _controller: MyShopAdminBundle:ProductPhoto:edit }
+    requirements:
+        id: \d+
 
 

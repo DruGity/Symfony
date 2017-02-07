@@ -3,6 +3,7 @@
 namespace MyShop\DefaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Product
@@ -31,21 +32,21 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(name="price", type="float", nullable=true)
      */
     private $price;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text")
+     * @ORM\Column(name="comments", type="text", nullable=true)
      */
     private $comments;
 
@@ -57,6 +58,21 @@ class Product
     */
     private $category;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="MyShop\DefaultBundle\Entity\ProductPhoto", mappedBy="product")
+    */
+    private $photos;
+
+    public function __construct()
+    {
+        $date = new \DateTime("now");
+        $this->setDateCreatedAt($date);
+
+        $this->photos = new ArrayCollection();
+    }
+
 
     /**
      * @var \DateTime
@@ -64,12 +80,6 @@ class Product
      * @ORM\Column(name="dateCreatedAt", type="datetime")
      */
     private $dateCreatedAt;
-
-    public function __construct()
-    {
-        $date = new \DateTime("now");
-        $this->setDateCreatedAt($date);
-    }
 
     /**
      * Get id
@@ -217,5 +227,62 @@ class Product
         $this->category = $category;
     }
 
-}
 
+    /**
+     * Set comments
+     *
+     * @param string $comments
+     *
+     * @return Product
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return string
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \MyShop\DefaultBundle\Entity\ProductPhoto $photo
+     *
+     * @return Product
+     */
+    public function addPhoto(\MyShop\DefaultBundle\Entity\ProductPhoto $photo)
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \MyShop\DefaultBundle\Entity\ProductPhoto $photo
+     */
+    public function removePhoto(\MyShop\DefaultBundle\Entity\ProductPhoto $photo)
+    {
+        $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+}
