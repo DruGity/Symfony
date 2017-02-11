@@ -37,12 +37,21 @@ class ProductPhoto
     private $fileName;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="smallFileName", type="string", length=255)
+     */
+    private $smallFileName;
+
+    /**
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="MyShop\DefaultBundle\Entity\Product", inversedBy="photos")
      * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
     */
     private $product;
+
+
 
 
     /**
@@ -101,6 +110,23 @@ class ProductPhoto
     public function getFileName()
     {
         return $this->fileName;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getSmallFileName()
+    {
+        return $this->smallFileName;
+    }
+
+    /**
+     * @param string $smallFileName
+     */
+    public function setSmallFileName($smallFileName)
+    {
+        $this->smallFileName = $smallFileName;
     }
 
     /**

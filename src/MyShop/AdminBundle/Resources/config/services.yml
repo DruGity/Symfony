@@ -1,4 +1,12 @@
-services:
-#    my_shop_admin.example:
-#        class: MyShop\AdminBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+services: 
+    myshop_admin.check_img_type:  # имя сервиса
+        class: MyShop\AdminBundle\Services\CheckImgType
+        arguments:
+            - "%upload_image_type_list%" # указание на конструктор
+
+    myshop_admin.name_generator:  
+        class: MyShop\AdminBundle\Services\NameGenerator
+
+    myshop_admin.image_resize:  
+        class: MyShop\AdminBundle\Services\Resizing
+

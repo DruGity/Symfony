@@ -9,6 +9,7 @@
         <tr>
             <td>{{ photo.getTitle() }}</td>
             <td>
+                <img src="/photos/{{ photo.getSmallFileName() }}"/>
                 <img src="/photos/{{ photo.getFileName() }}" />
             </td>
             <td>

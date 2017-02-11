@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 namespace MyShop\AdminBundle\Controller;
 
 use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
@@ -8,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use \Eventviva\ImageResize;
 
 class ProductPhotoController extends Controller
 {
@@ -46,38 +48,55 @@ class ProductPhotoController extends Controller
 
             /** @var UploadedFile $photoFile */
             $photoFile = $filesAr["photoFile"];
-            $mimeType = $photoFile->getClientMimeType();
-            if ($mimeType !== "image/jpeg" and $mimeType !== "image/jpg" and $mimeType !== "image/gif" and $mimeType !== "image/png") {
-                throw new InvalidArgumentException("MimeType is blocked!");
-            }
 
-            $fileExt = $photoFile->getClientOriginalExtension();
-            if ($fileExt !== "jpg" and $fileExt !== "png" and $fileExt !== "gif") {
-                throw new InvalidArgumentException("Extension is blocked!");
-            }
+            $checkImgService = $this->get("myshop_admin.check_img_type");
+            try {
+                $checkImgService->check($photoFile);
+            } catch (\InvalidArgumentException $ex) {
+                die("Недопустимый тип картинки!");
+            } 
 
-            $photoFileName = $product->getId() . rand(1000000, 9999999) . "." . $photoFile->getClientOriginalExtension();
+            $nameGenerator = $this->get("myshop_admin.name_generator");
+
+            $photoFileName = $product->getId() . $nameGenerator->generateName() . "." . $photoFile->getClientOriginalExtension();
             $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/"; // путь сохранения фото
 
             $photoFile->move($photoDirPath, $photoFileName); // какому товару пренадлежит
 
+            $img = new ImageResize($photoDirPath . $photoFileName); // создаём обьект с новой библиотеки
+            $resize = $this->get("myshop_admin.image_resize");
+           // $img = $resize->Resize(250, 200);
+            $img->resizeToBestFit(250, 200); // указываем параметры новой картинки
+            $smallPhotoName = "small_" . $photoFileName; // новый путь к картинки
+            $img->save($photoDirPath . $smallPhotoName); // сохранение новой картинки
+
+            $photo->setSmallFileName($smallPhotoName); // устанавливаем имя картинки в сеттер
             $photo->setFileName($photoFileName); // сохранение в БД
             $photo->setProduct($product); // сохранение в БД
 
             $manager->persist($photo); // проверка и выполнение
             $manager->flush(); //  и выполнение
+
+            if ($form->isSubmitted())  // проверка на нажатие submit
+            {
+                return $this->redirectToRoute("my_shop_admin.product_list"); // путь куда переносит после ввода данных
+            }
+            
         }
 
         return [
             "form" => $form->createView(),
-            "product" => $product,
+            "product" => $product
         ];
     }
 
     public function deleteAction($id)
     {
 
+    $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
     $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
+    $filename = $photoDirPath . $photo->getFileName();
+
 
     if ($photo == null) {
       throw $this->createNotFoundException("Photo not found");
@@ -85,6 +104,7 @@ class ProductPhotoController extends Controller
 
     $manager = $this->getDoctrine()->getManager();
     $manager->remove($photo);
+    unlink($filename);
     $manager->flush();
 
 
@@ -94,7 +114,7 @@ class ProductPhotoController extends Controller
     /**
      * @Template()
     */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {	
 
     $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
@@ -103,10 +123,27 @@ class ProductPhotoController extends Controller
       throw $this->createNotFoundException("Photo not found");
 	}
 
-    $form = $this->createForm(ProductPhotoType::class, $photo);
+    $form = $this->createForm(ProductPhotoType::class, $photo); // ссылка на форму
+
+    if ($request->isMethod("POST"))
+        {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted())  // проверка на нажатие submit
+            {
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($photo);
+                $manager->flush();               // занос вводимых данных в базу
+
+                return $this->redirectToRoute("my_shop_admin.product_list"); // путь куда переносит после ввода данных
+            }
+
+                
+        }
 
     return [
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "photo" => $photo
         ];
 
     }
