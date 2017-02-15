@@ -91,24 +91,25 @@ class ProductPhotoController extends Controller
     }
 
         public function deleteAction($id)
-        {
-
-            $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
+        {   
             $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
-            $filename = $photoDirPath . $photo->getFileName();
-            $smallFilename = $photoDirPath . $photo->getSmallFileName();
-
+            $photoRemover = $this->get("myshop.product_photo_remover");
+            $photoRemover->removePhoto($photo);
 
             if ($photo == null) {
             throw $this->createNotFoundException("Photo not found");
         }
 
-            $manager = $this->getDoctrine()->getManager();
-            $manager->remove($photo);
-            unlink($filename);
-            unlink($smallFilename);
-            $manager->flush();
+            //$photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
+            //$photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
+            //$filename = $photoDirPath . $photo->getFileName();
+            //$smallFilename = $photoDirPath . $photo->getSmallFileName();
 
+            //$manager = $this->getDoctrine()->getManager();
+            //$manager->remove($photo);
+            //unlink($filename);
+            //unlink($smallFilename);
+            //$manager->flush();
 
             return $this->redirectToRoute("my_shop_admin.product_list");
     }

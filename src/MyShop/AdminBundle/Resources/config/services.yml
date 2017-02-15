@@ -9,4 +9,9 @@ services:
 
     myshop_admin.image_resize:  
         class: MyShop\AdminBundle\Services\Resizing
-
+  
+    myshop.product_photo_remover:
+        class: MyShop\AdminBundle\Services\PhotoRemover
+        arguments:
+             - “@doctrine.orm.default_entity_manager”
+             - “%image_root_dir%”
