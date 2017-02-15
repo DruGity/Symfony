@@ -1,5 +1,10 @@
-<h2>Редактирование товара</h2>
+{% extends "@MyShopAdmin/layout.html.twig" %}
+{% block body %}
+<div class="progressbar-heading grids-heading">
+		<h2>Редактирование товара {{product.getModel}}</h2>					
+	</div>
 <form method="post" action="{{ path('my_shop_admin.product_edit', {id:product.id}) }}"> 
 {{ form_widget(form) }}
     <input type="submit" value="Редактировать" />
 </form>
+{% endblock %}

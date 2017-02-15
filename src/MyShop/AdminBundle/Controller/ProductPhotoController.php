@@ -14,7 +14,7 @@ use \Eventviva\ImageResize;
 class ProductPhotoController extends Controller
 {
 
-	/**
+    /**
      * @Template()
     */
     public function listAction($idProduct)
@@ -90,38 +90,40 @@ class ProductPhotoController extends Controller
         ];
     }
 
-    public function deleteAction($id)
-    {
+        public function deleteAction($id)
+        {
 
-    $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
-    $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
-    $filename = $photoDirPath . $photo->getFileName();
-
-
-    if ($photo == null) {
-      throw $this->createNotFoundException("Photo not found");
-	}
-
-    $manager = $this->getDoctrine()->getManager();
-    $manager->remove($photo);
-    unlink($filename);
-    $manager->flush();
+            $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
+            $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
+            $filename = $photoDirPath . $photo->getFileName();
+            $smallFilename = $photoDirPath . $photo->getSmallFileName();
 
 
-    return $this->redirectToRoute("my_shop_admin.product_list");
+            if ($photo == null) {
+            throw $this->createNotFoundException("Photo not found");
+        }
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($photo);
+            unlink($filename);
+            unlink($smallFilename);
+            $manager->flush();
+
+
+            return $this->redirectToRoute("my_shop_admin.product_list");
     }
 
     /**
      * @Template()
     */
     public function editAction(Request $request, $id)
-    {	
+    {   
 
     $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
     
     if ($photo == null) {
       throw $this->createNotFoundException("Photo not found");
-	}
+    }
 
     $form = $this->createForm(ProductPhotoType::class, $photo); // ссылка на форму
 

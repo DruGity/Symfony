@@ -32,7 +32,7 @@ class Category
     /**
      * @var ArrayCollection // тип массива
      *
-     * @ORM\OneToMany(targetEntity="MyShop\DefaultBundle\Entity\Product", mappedBy="category") \\ вид связи и обратная связь
+     * @ORM\OneToMany(targetEntity="MyShop\DefaultBundle\Entity\Product", mappedBy="category", cascade={"All"}) \\ вид связи и обратная связь
     */
     private $productList;
 

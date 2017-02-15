@@ -1,21 +1,31 @@
 {% extends "@MyShopAdmin/layout.html.twig" %}
 {% block body %}
+<div class="single-bottom2">
+                    <h6><a href="{{ path("my_shop_admin.category_add") }}">Добавить категорию</a></h6>
+                {% for cat in categoryList %}
+                        <div class="product">
+                           <div class="product-desc">
+                                <div class="product-img">
+                                   <img src="/images/w8.jpg" class="img-responsive " alt="">
+                               </div>
+                               <div class="prod1-desc">
+                                   <h5><a class="product_link" href="{{ path("my_shop_admin.product_list_by_category", {id_category:cat.id}) }}">{{ cat.name }}</h5></a>
+                                   <h6 class="product_descr"><a href="{{ path("my_shop_admin.category_delete", {id_category:cat.id}) }}"><b>Удалить категорию</b></a> <br/> </h6> 
+                                   <h6 class="product_descr"><a href="{{ path("my_shop_admin.category_edit", {id_category:cat.id}) }}"><b>Редактировать категорию</b></a>  <br/> </h6>                                  
+                               </div>
+                              <div class="clearfix"></div>
+                          </div>
+                         
+                         <div class="clearfix"></div>
+                     </div>
+                {% endfor %}
 
 
-<a href="{{ path("my_shop_admin.category_add") }}">Добавить категорию</a>
-<ul>
-{% for cat in categoryList %}
-    <table>
-    	
-    	
-    	    <li>		
-    			<a href="{{ path("my_shop_admin.product_list_by_category", {id_category:cat.id}) }}">{{ cat.name }}</a> 
-    		</li>		
-    	
-				<a href="{{ path("my_shop_admin.category_delete", {id_category:cat.id}) }}"><b>Удалить категорию</b></a> <br/>
-				<a href="{{ path("my_shop_admin.category_edit", {id_category:cat.id}) }}"><b>Редактировать категорию</b></a> 
-    </table>
-    <br/>
-{% endfor %}
-</ul>
 {% endblock %}
+
+
+
+
+
+
+

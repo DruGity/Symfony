@@ -4,10 +4,12 @@ namespace MyShop\AdminBundle\Controller;
 
 use MyShop\DefaultBundle\Entity\Product;
 use MyShop\DefaultBundle\Form\ProductType;
+use MyShop\DefaultBundle\Entity\ProductPhoto;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request; // указать при использовании request
+
 
 class ProductController extends Controller
 {	
@@ -63,11 +65,11 @@ class ProductController extends Controller
 
 	public function deleteAction($id)
     {
+        
         $product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($id); 
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($product); // удаление из БД
         $manager->flush(); // выполнение
-
         return $this->redirectToRoute("my_shop_admin.product_list");
     }
 

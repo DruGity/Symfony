@@ -1,4 +1,65 @@
 {% extends "@MyShopAdmin/layout.html.twig" %}
+
+{% block body %}
+<div class="w_content">
+<div class="women_main">
+    <!-- start content -->
+
+   <div class="w_content">
+        <div class="women">
+            <a href="{{ path("my_shop_admin.product_add")}}"><h4>Добавить товар</h4></a>
+            <ul class="w_nav">
+                        <li><a href="#"><h4>Количество товаров - <span>5 штук</span> </h4></a></li>
+                        <div class="clear"></div>   
+             </ul>
+             <div class="clearfix"></div>   
+        </div>
+        <!-- grids_of_4 -->
+
+        {% for product in productList %}
+        <div class="grids_of_4">
+          <div class="grid1_of_4">
+                <div class="content_box"><a href="#">
+                     {#<img src="#" class="img-responsive" alt="">#}
+                      </a>
+                    <h4><a href="{{ path("my_shop_admin.product_edit", {id:product.id}) }}"> {{ product.getModel() }}</a></h4>
+                     <p>{{ product.getCategory().getName() }}</p>
+                    
+                    
+                     <div class="item_add"><span class="item_price"><h6> ${{ product.getPrice() }}</h6></span></div>
+                     <h4><a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">Управление картинками</a></h4>
+
+                     <div class="item_add">
+                        <span class="item_price"><a href="{{ path("my_shop.admin.product_delete", {id:product.id}) }}">Удалить</a><br/></span>
+                    </div>
+
+                  
+                     </div>
+                </div>
+            </div>
+            {% endfor %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#
 {% block body %}
 
 <table border="1">
@@ -28,3 +89,4 @@
 </table >
 
 {% endblock %}
+#}
