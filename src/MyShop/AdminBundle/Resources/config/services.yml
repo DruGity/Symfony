@@ -13,5 +13,18 @@ services:
     myshop.product_photo_remover:
         class: MyShop\AdminBundle\Services\PhotoRemover
         arguments:
-             - “@doctrine.orm.default_entity_manager”
-             - “%image_root_dir%”
+             - "@doctrine.orm.default_entity_manager"
+             - "%image_root_dir%"
+
+    myshop_admin.image_uploader:
+        class: MyShop\AdminBundle\Services\UploadImageService
+        arguments:
+             - "@myshop_admin.check_img_type"
+             - "@myshop_admin.name_generator"
+        calls:
+             - ["setUploadImageRootDir", ["%image_upload_dir%"]]
+
+             
+
+             
+

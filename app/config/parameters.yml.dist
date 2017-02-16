@@ -17,7 +17,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
-
+    image_root_dir: "%kernel.root_dir%/../web/photos/"
     upload_image_type_list:
         - ["jpg", "image/jpg"]
         - ["gif", "image/gif"]

@@ -17,7 +17,7 @@ class PhotoRemover {
 	}
 
 
-    public function removePhoto(ProductPhoto $photo)
+    public function removePhoto(MyShop\DefaultBundle\Entity\ProductPhoto $photo)
     {
         $filename = $this->pathDir . $photo->getFileName();
         $smallFilename = $this->pathDir . $photo->getSmallFileName();
@@ -34,7 +34,5 @@ class PhotoRemover {
 
 
 
-			//$manager = $this->getDoctrine()->getManager();
-            //$manager->remove($photo);
-            
-            //$manager->flush();
+		
+        
