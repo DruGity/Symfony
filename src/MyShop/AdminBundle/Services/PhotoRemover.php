@@ -2,9 +2,10 @@
 
 namespace MyShop\AdminBundle\Services;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 
-class PhotoRemover {
+class PhotoRemover extends Controller{
 
 	private $manager;
 
@@ -17,20 +18,24 @@ class PhotoRemover {
 	}
 
 
-    public function removePhoto(MyShop\DefaultBundle\Entity\ProductPhoto $photo)
+    public function removePhoto($photo)
     {
         $filename = $this->pathDir . $photo->getFileName();
         $smallFilename = $this->pathDir . $photo->getSmallFileName();
 
         unlink($filename);
         unlink($smallFilename);
-
-        $man = $this->getDoctrine() -> $this->manager;
-        $man->remove($photo);
-        $man->flush();   
+    
+        $this->manager->remove($photo);
+        $this->manager->flush();   
     }
     
 }
+
+//
+        
+        //$manager = $this->getDoctrine()->getManager();
+        //$this->getDoctrine() = $this->manager->remove($photo);
 
 
 

@@ -1,7 +1,46 @@
 {% extends "@MyShopAdmin/layout.html.twig" %}
 
 {% block body %}
-    <div class="single-bottom2">
+    
+<div class="single-bottom2">
+          <h3><a class="product_link" href="{{ path("my_shop_admin.product_photo_add", {idProduct:product.id}) }}">Добавить фото</a></h3>
+          {% for photo in product.getPhotos() %}
+            <div class="product">
+               <div class="product-desc">
+                <div class="product-img">
+                  
+                               <img src="/photos/{{ photo.getFileName() }}" class="img-responsive " alt="">
+                               <img src="/photos/{{ photo.getSmallFileName() }}" class="img-responsive " alt="">
+                           </div>
+                           <div class="prod1-desc">
+                                <h6>Фотографии товара {{ product.model }}</h6>
+                               <h6><a class="product_link" href="{{ path("my_shop_admin.product_photo_delete", {id:photo.id}) }}">Удалить фото</a></h6>
+                               <h6><a class="product_link" href="{{ path("my_shop_admin.product_photo_edit", {id:photo.id}) }}">Редактировать фото</a></h6>
+                                              
+                 </div>
+                 {% endfor %}
+                <div class="clearfix"></div>
+                </div>
+             
+             <div class="clearfix"></div>
+             </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{# <div class="single-bottom2">
                     <h6>Фотографии товара {{ product.model }}</h6>
                     {% for photo in product.getPhotos() %}
                      <div class="product">
@@ -12,11 +51,11 @@
                                <div class="prod1-desc">
                                 <img src="/photos/{{ photo.getSmallFileName() }}" class="img-responsive " alt="">
 
-                                   {#<h5><a class="product_link" href="#">{{ photo.getTitle() }}</a></h5>#}  
+                                   {#<h5><a class="product_link" href="#">{{ photo.getTitle() }}</a></h5>  
                                    <h5><a class="product_link" href="{{ path("my_shop_admin.product_photo_edit", {id:photo.id}) }}">Редактирование</a></h5> 
                                    <h5><a class="product_link" href="{{ path("my_shop_admin.product_photo_delete", {id:photo.id}) }}">Удалить фото</a></h5>
                                     {% endfor %}   
-                                    <h5><a class="product_link" href="{{ path("my_shop_admin.product_photo_add", {idProduct:product.id}) }}">Добавить фото</a></h5>                       
+                                                           
                                </div>
                                <div class="clearfix"></div>
                           </div>
@@ -24,7 +63,21 @@
                          <div class="clearfix"></div>
                      </div>
               </div>
-{% endblock %}
+
+            <div class="foot-top">
+  
+    <div class="col-md-6 s-c">
+      <li>
+        <div class="fooll">
+          <h1><a class="product_link" href="{{ path("my_shop_admin.product_photo_add", {idProduct:product.id}) }}">Добавить фото</a></h1>
+        </div>
+      </li>
+      
+        <div class="clearfix"> </div>
+    </div> 
+
+    #}
+
 
 
 

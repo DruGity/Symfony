@@ -31,20 +31,19 @@ class ProductPhotoController extends Controller
     */
     public function addAction(Request $request, $idProduct)
     {
-        $manager = $this->getDoctrine()->getManager(); // вытаскивает товар из БД
-        $product = $manager->getRepository("MyShopDefaultBundle:Product")->find($idProduct); // вытаскивает нужный id товара
-        if ($product == null) { // проверка на его существование
+        $manager = $this->getDoctrine()->getManager(); 
+        $product = $manager->getRepository("MyShopDefaultBundle:Product")->find($idProduct); 
+        if ($product == null) { 
             return $this->createNotFoundException("Product not found!");  
         }
 
-        $photo = new ProductPhoto(); // создание нового обьекта
-        $form = $this->createForm(ProductPhotoType::class, $photo); // создание формы
+        $photo = new ProductPhoto(); 
+        $form = $this->createForm(ProductPhotoType::class, $photo);
 
-        if ($request->isMethod("POST")) // обработка пост метода
+        if ($request->isMethod("POST")) 
         {
             $form->handleRequest($request); // создание формы
-
-            $filesAr = $request->files->get("myshop_defaultbundle_productphoto"); // Префикс с формы
+            $filesAr = $request->files->get("myshop_defaultbundle_productphoto"); 
 
             /** @var UploadedFile $photoFile */
             $photoFile = $filesAr["photoFile"];
@@ -56,22 +55,10 @@ class ProductPhotoController extends Controller
                 die("Недопустимый тип картинки!");
             } 
 
-            $nameGenerator = $this->get("myshop_admin.name_generator");
+            $result = $this->get("myshop_admin.image_uploader")->uploadImage($photoFile, $idProduct);
 
-            $photoFileName = $product->getId() . $nameGenerator->generateName() . "." . $photoFile->getClientOriginalExtension();
-            $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/"; // путь сохранения фото
-
-            $photoFile->move($photoDirPath, $photoFileName); // какому товару пренадлежит
-
-            $img = new ImageResize($photoDirPath . $photoFileName); // создаём обьект с новой библиотеки
-            $resize = $this->get("myshop_admin.image_resize");
-           // $img = $resize->Resize(250, 200);
-            $img->resizeToBestFit(250, 200); // указываем параметры новой картинки
-            $smallPhotoName = "small_" . $photoFileName; // новый путь к картинки
-            $img->save($photoDirPath . $smallPhotoName); // сохранение новой картинки
-
-            $photo->setSmallFileName($smallPhotoName); // устанавливаем имя картинки в сеттер
-            $photo->setFileName($photoFileName); // сохранение в БД
+            $photo->setSmallFileName($result->getSmallFileName());
+            $photo->setFileName($result->getBigFileName());
             $photo->setProduct($product); // сохранение в БД
 
             $manager->persist($photo); // проверка и выполнение
@@ -93,23 +80,13 @@ class ProductPhotoController extends Controller
         public function deleteAction($id)
         {   
             $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
-            $photoRemover = $this->get("myshop.product_photo_remover");
-            $photoRemover->removePhoto($photo);
 
             if ($photo == null) {
             throw $this->createNotFoundException("Photo not found");
-        }
-
-            //$photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
-            //$photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
-            //$filename = $photoDirPath . $photo->getFileName();
-            //$smallFilename = $photoDirPath . $photo->getSmallFileName();
-
-            //$manager = $this->getDoctrine()->getManager();
-            //$manager->remove($photo);
-            //unlink($filename);
-            //unlink($smallFilename);
-            //$manager->flush();
+            }
+            
+            $photoRemover = $this->get("myshop.product_photo_remover");
+            $photoRemover->removePhoto($photo);
 
             return $this->redirectToRoute("my_shop_admin.product_list");
     }

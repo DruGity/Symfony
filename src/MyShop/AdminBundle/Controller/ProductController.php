@@ -8,7 +8,7 @@ use MyShop\DefaultBundle\Entity\ProductPhoto;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\Request; // указать при использовании request
+use Symfony\Component\HttpFoundation\Request; 
 
 
 class ProductController extends Controller
@@ -18,28 +18,28 @@ class ProductController extends Controller
     */
 	public function editAction(Request $request, $id)
 	{
-		$product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($id); // определение по id с БД
+		$product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($id); 
 
-		$form = $this->createForm(ProductType::class, $product); // всё тоже самое что и в добавлении
+		$form = $this->createForm(ProductType::class, $product); 
 
         /******************************************/ //обработка метода POST
         if ($request->isMethod("POST"))
         {
             $form->handleRequest($request);
 
-            if ($form->isSubmitted())  // проверка на нажатие submit
+            if ($form->isSubmitted())  
             {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($product);
-                $manager->flush();               // занос вводимых данных в базу
+                $manager->flush();               
 
-                return $this->redirectToRoute("my_shop_admin.product_list"); // путь куда переносит после ввода данных
+                return $this->redirectToRoute("my_shop_admin.product_list"); 
             }
         }
         /******************************************/ // окончание обработки метода ПОСТ
 
         return [
-            "form" => $form->createView(), // возврат формы
+            "form" => $form->createView(), 
             "product" => $product
         ];
 	}
@@ -49,7 +49,7 @@ class ProductController extends Controller
         $category = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Category")->find($id_category);
         $productList = $category->getProductList();
 
-        return $this->render("@MyShopAdmin/Product/list.html.twig", [    // вызов того же шаблона что и у listAction() 
+        return $this->render("@MyShopAdmin/Product/list.html.twig", [    
             "productList" => $productList   // что бы не создавать новую вьюшку
         ]);
     }
@@ -58,25 +58,34 @@ class ProductController extends Controller
      * @Template()
     */
 	public function listAction()
-	{
+	{      
 		$productList = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->findAll();
-		return ["productList" => $productList]; // не работает
+		return ["productList" => $productList]; 
 	}
 
-	public function deleteAction($id)
-    {
-        
-        $product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($id); 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($product); // удаление из БД
-        $manager->flush(); // выполнение
-        return $this->redirectToRoute("my_shop_admin.product_list");
-    }
 
-   /**
+	public function deleteAction($id)
+    {   
+        $manager = $this->getDoctrine()->getManager();
+        $product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($id);
+
+        $photos = $product->getPhotos(); 
+        $photoRemover = $this->get("myshop.product_photo_remover");
+
+            foreach ($photos as $photo) {
+            $photoRemover->removePhoto($photo);
+            }
+
+            $manager->remove($product);
+            $manager->flush(); 
+
+            return $this->redirectToRoute("my_shop_admin.product_list");
+    }
+    
+    /**
      * @Template()
     */
-    public function addAction(Request $request) //
+    public function addAction(Request $request) 
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -86,13 +95,13 @@ class ProductController extends Controller
         {
             $form->handleRequest($request);
 
-            if ($form->isSubmitted())  // проверка на нажатие submit
+            if ($form->isSubmitted())  
             {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($product);
-                $manager->flush();               // занос вводимых данных в базу
+                $manager->flush();               
 
-                return $this->redirectToRoute("my_shop_admin.product_list"); // путь куда переносит после ввода данных
+                return $this->redirectToRoute("my_shop_admin.product_list"); 
             }
         }
         /******************************************/

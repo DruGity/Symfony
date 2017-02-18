@@ -46,7 +46,7 @@ class ProductPhoto
     /**
      * @var Product
      *
-     * @ORM\ManyToOne(targetEntity="MyShop\DefaultBundle\Entity\Product", inversedBy="photos",cascade={"All"})
+     * @ORM\ManyToOne(targetEntity="MyShop\DefaultBundle\Entity\Product", inversedBy="photos")
      * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
     */
     private $product;

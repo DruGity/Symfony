@@ -1,3 +1,7 @@
+login:
+    path: /login
+    defaults: { _controller: MyShopAdminBundle:Login:login }
+
 my_shop_admin.index:
     path:     /
     defaults: { _controller: MyShopAdminBundle:Default:index }

@@ -8,14 +8,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadImageService 
 {
-    /**
-     * @var CheckImg
-    */
+    
     private $checkImg;
-
-    /**
-     * @var ImageNameGenerator
-    */
+    
     private $imageNameGenerator;
 
     private $uploadImageRootDir;
@@ -25,7 +20,7 @@ class UploadImageService
     private $smallPhotoName;
 
 
-    public function __construct(CheckImg $checkImg, ImageNameGenerator $imageNameGenerator)
+    public function __construct(CheckImgType $checkImg, $imageNameGenerator)
     {
         $this->checkImg = $checkImg;
         $this->imageNameGenerator = $imageNameGenerator;
@@ -36,9 +31,7 @@ class UploadImageService
         $this->uploadImageRootDir = $imageRootDir;
     }
 
-    /**
-     * @return UploadedImageResult
-    */
+    
     public function uploadImage(UploadedFile $uploadedFile, $productId)
     {
         $imageNameGenerator = $this->imageNameGenerator;
@@ -46,20 +39,14 @@ class UploadImageService
         $photoFileName = $productId . $imageNameGenerator->generateName() . "." . $uploadedFile->getClientOriginalExtension();
         $photoDirPath = $this->uploadImageRootDir;
 
-        try {
-            $uploadedFile->move($photoDirPath, $photoFileName);
-        }
-        catch (\Exception $exception) {
-            echo "Can not move file!";
-            throw $exception;
-        }
+        $uploadedFile->move($photoDirPath, $photoFileName);
 
         $img = new ImageResize($photoDirPath . $photoFileName);
         $img->resizeToBestFit(250, 200);
         $smallPhotoName = "small_" . $photoFileName;
         $img->save($photoDirPath . $smallPhotoName);
 
-        $result = new UploadedImageResult($smallPhotoName, $photoFileName);
+        $result = new UploadedImageResult($smallPhotoName, $photoFileName); // возвращает с помощью DTO 
 
         return $result;
     }

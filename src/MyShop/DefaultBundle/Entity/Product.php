@@ -61,7 +61,7 @@ class Product
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="MyShop\DefaultBundle\Entity\ProductPhoto", mappedBy="product",cascade={"All"})
+     * @ORM\OneToMany(targetEntity="MyShop\DefaultBundle\Entity\ProductPhoto", mappedBy="product", cascade={"All"})
     */
     private $photos;
 

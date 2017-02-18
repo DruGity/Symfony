@@ -2,6 +2,7 @@
 
 namespace MyShop\AdminBundle\Controller;
 
+use MyShop\DefaultBundle\Entity\Product;
 use MyShop\DefaultBundle\Entity\Category;
 use MyShop\DefaultBundle\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -53,6 +54,7 @@ class CategoryController extends Controller
     {
         $category = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Category")->find($id_category); 
         $manager = $this->getDoctrine()->getManager();
+
         $manager->remove($category); // удаление из БД
         $manager->flush(); // выполнение
 
