@@ -6,9 +6,7 @@
 <meta name="keywords" content="Registration / Login form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="{{ asset("bundles/myshopdefault/csslogin/style.css") }}" />
-
-
+<link rel="stylesheet" href="{{ asset("bundles/myshopdefault/css/loginstyle.css") }}" />
 
 
 </head>
@@ -35,11 +33,11 @@
 										<div class="form-body form-body-info">
 											<form data-toggle="validator" novalidate="" action="{{ path('login') }}" method="post">
 												<div class="form-group has-feedback">
-													<input  id = "username" type="text" class="form-control inputEmail" name="_username" placeholder="Username" data-error="Bruh, that Name is invalid" required="">
+													<input  id = "username" type="text" class="form-control inputEmail" name="_username" placeholder="Username" error="Bruh, that Name is invalid" required="">
 													<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 												</div>
 												<div class="form-group">
-													<input id="password" type="password" data-toggle="validator" data-minlength="6" class="form-control inputPassword" name="_password" placeholder="Password" required="">
+													<input id="password" type="password" data-toggle="validator" data-minlength="6" class="form-control inputPassword" name="_password" placeholder="Password" error="incorrect password" required="">
 												</div>
 												<div class="bottom">
 													<div class="form-group">
@@ -75,6 +73,8 @@
 		</div>
 		<!-- //footer -->
 		<!-- input-forms -->		
+		
+	
 </body>
 </html>
 

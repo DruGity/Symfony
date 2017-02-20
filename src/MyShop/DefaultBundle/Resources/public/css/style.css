@@ -572,7 +572,7 @@ ul.qty li p{
   color: #000000;
   margin-right: 0px;
   padding: 1px 10px;
-  background: url(../images/phon.png) no-repeat 4px 2px;
+  background: url(/images/phon.png) no-repeat 4px 2px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
@@ -865,7 +865,7 @@ input:focus {
 	background: #ffffff;
 }
 .search input[type="submit"]{
-	background: url('../images/search.png') no-repeat 0px 1px;
+	background: url('/images/search.png') no-repeat 0px 1px;
 	border: none;
 	cursor: pointer;
 	width: 24px;

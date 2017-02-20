@@ -1,7 +1,41 @@
 {% extends "@MyShopDefault/Default/layout.html.twig" %}
 
 {% block body %}
-    <h2>Список Категорий</h2>
+
+    <div class="content_top">
+            <div class="heading">
+            <h3>Список Категорий</h3>
+            </div>
+            <div class="see">
+                <p><a href="#">Выбрать категорию</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+          <div class="section group">
+            {% for product in productList %}
+                <div class="grid_1_of_4 images_1_of_4">
+
+                     <a href="#"><img src="/images/feature-pic1.jpg" alt="" /></a>
+                     <a href="#"><h2>{{ product.getCategory().getName() }}</h2></a>
+                    <div class="price-details">
+                       <div class="price-number">
+                            <p><span class="rupees">Количество товаров</span></p>
+                        </div>
+                             <div class="clear"></div>
+                    </div>
+                     
+                </div>
+                {% endfor %}
+               
+            </div>
+    
+
+{% endblock %}
+
+
+
+{#<h2>Список Категорий</h2>
     <ul>
     {% for product in productList %}
         <li>
@@ -14,6 +48,4 @@
     {% else %}
          Категорий нет!
     {% endfor %}
-    </ul>
-
-{% endblock %}
+    </ul> #}

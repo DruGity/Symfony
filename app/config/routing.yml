@@ -1,6 +1,7 @@
 my_shop_admin:
     resource: "@MyShopAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
+    
 logout:
     path: logout
 
