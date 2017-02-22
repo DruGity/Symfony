@@ -79,6 +79,9 @@ class ProductController extends Controller
             $manager->remove($product);
             $manager->flush(); 
 
+            $mail = $this->get("myshop_admin.sending_mail");
+            $mail->sendEmail("Product" . " " . $product->getModel() . " " . "was deleted!");  
+
             return $this->redirectToRoute("my_shop_admin.product_list");
     }
     
@@ -99,7 +102,10 @@ class ProductController extends Controller
             {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($product);
-                $manager->flush();               
+                $manager->flush(); 
+
+                $mail = $this->get("myshop_admin.sending_mail");
+                $mail->sendEmail("Product" . " " . $product->getModel() . " " . "was added!");  
 
                 return $this->redirectToRoute("my_shop_admin.product_list"); 
             }

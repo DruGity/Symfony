@@ -66,6 +66,9 @@ class ProductPhotoController extends Controller
 
             if ($form->isSubmitted())  // проверка на нажатие submit
             {
+                $mail = $this->get("myshop_admin.sending_mail");
+                $mail->sendEmail("The image was added to product" . " " . $product->getModel());  
+
                 return $this->redirectToRoute("my_shop_admin.product_list"); // путь куда переносит после ввода данных
             }
             

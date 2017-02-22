@@ -16,6 +16,9 @@ myshop.product_list:
 myshop.product_comments:
     path: /product/comments/{id}
     defaults: { _controller: MyShopDefaultBundle:Default:showComment }
+    requirements:
+        id: \d+
+
 
 myshop.category_list:
     path: /category/list

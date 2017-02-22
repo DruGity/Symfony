@@ -23,6 +23,8 @@ my_shop.admin.product_delete:
 my_shop_admin.product_edit:
     path:   /product/{id}/edit
     defaults: { _controller: MyShopAdminBundle:Product:edit }
+    requirements:
+        id: \d+
 
 my_shop_admin.category_add:
     path:   /category/add

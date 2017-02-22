@@ -9,6 +9,11 @@ services:
 
     myshop_admin.image_resize:  
         class: MyShop\AdminBundle\Services\Resizing
+
+    myshop_admin.sending_mail:  
+        class: MyShop\AdminBundle\Services\MailNotification
+        arguments: 
+             - "@mailer"
   
     myshop.product_photo_remover:
         class: MyShop\AdminBundle\Services\PhotoRemover
@@ -22,7 +27,7 @@ services:
              - "@myshop_admin.check_img_type"
              - "@myshop_admin.name_generator"
         calls:
-             - ["setUploadImageRootDir", ["%image_upload_dir%"]]
+             - ["setUploadImageRootDir", ["%image_root_dir%"]]
 
              
 

@@ -58,6 +58,8 @@ class Product
     */
     private $category;
 
+    
+
     /**
      * @var ArrayCollection
      *

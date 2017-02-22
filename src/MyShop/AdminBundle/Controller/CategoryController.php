@@ -41,6 +41,9 @@ class CategoryController extends Controller
             $manager->persist($category);
             $manager->flush();
 
+            $mail = $this->get("myshop_admin.sending_mail");
+            $mail->sendEmail("Category:" . " " . $category->getName() . " " . "was added!");  
+
             return $this->redirectToRoute("my_shop_admin.category_list");
         }
 

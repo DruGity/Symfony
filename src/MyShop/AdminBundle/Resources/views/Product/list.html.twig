@@ -29,7 +29,7 @@
 
                     <h4><a href="{{ path("my_shop_admin.product_edit", {id:product.id}) }}"> {{ product.getModel() }}</a></h4>
                      <p>{{ product.getCategory().getName() }}</p>
-                    
+                    <h4><a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">Картинки</a></h4>
                     
                      <div class="item_add"><span class="item_price"><h6> ${{ product.getPrice() }}</h6></span></div>
                      
