@@ -17,7 +17,7 @@
             {% for product in productList %}
                 <div class="grid_1_of_4 images_1_of_4">
                     {% for photo in product.getPhotos() %}
-                        <a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">
+                        <a href="{{ path("myshop.product_info", {id:product.getId()}) }}">
                      <img src="/photos/{{ photo.getSmallFileName() }}" class="img-responsive " alt="">
                       </a>
                     {% endfor %}

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request; 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 class ProductController extends Controller
@@ -95,11 +96,18 @@ class ProductController extends Controller
 
         /******************************************/ //обработка метода POST
         if ($request->isMethod("POST"))
-        {
-            $form->handleRequest($request);
-
+        { 
             if ($form->isSubmitted())  
             {
+                $filesAr = $request->files->get("myshop_defaultbundle_product");
+
+                /* @var UploadedFile $photoFile */
+                $photoFile = $filesAr["icon_file_name"];
+                $result = $this->get("myshop_admin.image_uploader")->uploadImage($photoFile, $idProduct);
+
+                $product->setIconFileName($result->getSmallFileName());
+                $product->setProduct($product);
+
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($product);
                 $manager->flush(); 

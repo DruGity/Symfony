@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,6 +36,11 @@ class ProductType extends AbstractType
                 "choice_label" => "name",   // Выпадающий список
                 "label" => "Категория" // название перед выпадающим списком
             ])
+            ->add('iconFile', FileType::class,[
+                "label" => "Иконка товара",
+                "required" => false,
+                "mapped" => false
+                ])
         ;
     }
     

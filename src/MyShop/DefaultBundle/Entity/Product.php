@@ -51,6 +51,13 @@ class Product
     private $comments;
 
     /**
+    *@var string
+    *
+    *@ORM\Column(name="icon_file_name", type="string", length=255 )
+    */
+    private $iconFileName;
+
+    /**
      * @var Category
      *
      * @ORM\ManyToOne(targetEntity="MyShop\DefaultBundle\Entity\Category", inversedBy="productList") // указание связей: прямой и обратной
@@ -115,6 +122,30 @@ class Product
     public function getModel()
     {
         return $this->model;
+    }
+
+    /**
+     * Set iconFileName
+     *
+     * @param string $iconFileName
+     *
+     * @return Product
+     */
+    public function setIconFileName($iconFileName)
+    {
+        $this->iconFileName = $iconFileName;
+
+        return $this;
+    }
+
+    /**
+     * Get iconFileName
+     *
+     * @return string
+     */
+    public function getIconFileName()
+    {
+        return $this->iconFileName;
     }
 
     /**

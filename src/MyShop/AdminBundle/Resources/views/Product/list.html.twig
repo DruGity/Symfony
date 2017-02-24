@@ -20,12 +20,12 @@
         <div class="grids_of_4">
           <div class="grid1_of_4">
                 <div class="content_box"><a href="#">
+
+                  <a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">
+                  <img src="/photos/{{ product.getIconFileName() }}" />
                   
-                     {% for photo in product.getPhotos() %}
-                        <a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">
-                     <img src="/photos/{{ photo.getSmallFileName() }}" class="img-responsive " alt="">
-                      </a>
-                    {% endfor %}
+                  
+                     
 
                     <h4><a href="{{ path("my_shop_admin.product_edit", {id:product.id}) }}"> {{ product.getModel() }}</a></h4>
                      <p>{{ product.getCategory().getName() }}</p>
@@ -45,19 +45,13 @@
 {% endblock %}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+{#
+{% for photo in product.getPhotos() %}
+                        <a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">
+                     <img src="/photos/{{ photo.getSmallFileName() }}" class="img-responsive " alt="">
+                      </a>
+                    {% endfor %}
+                    #}
 
 
 
