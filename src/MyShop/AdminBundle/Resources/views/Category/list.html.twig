@@ -9,9 +9,9 @@
                                    <img src="/images/w8.jpg" class="img-responsive " alt="">
                                </div>
                                <div class="prod1-desc">
-                                   <h5><a class="product_link" href="{{ path("my_shop_admin.product_list_by_category", {id_category:cat.id}) }}">{{ cat.name }}</h5></a>
-                                   <h6 class="product_descr"><a href="{{ path("my_shop_admin.category_delete", {id_category:cat.id}) }}"><b>Удалить категорию</b></a> <br/> </h6> 
-                                   <h6 class="product_descr"><a href="{{ path("my_shop_admin.category_edit", {id_category:cat.id}) }}"><b>Редактировать категорию</b></a>  <br/> </h6>                                  
+                                   <h5><a class="product_link" href="{{ url("my_shop_admin.product_list_by_category", {id_category:cat.id}) }}">{{ cat.name }}</h5></a>
+                                   <h6 class="product_descr"><a href="{{ url("my_shop_admin.category_delete", {id_category:cat.id}) }}"><b>Удалить категорию</b></a> <br/> </h6> 
+                                   <h6 class="product_descr"><a href="{{ url("my_shop_admin.category_edit", {id_category:cat.id}) }}"><b>Редактировать категорию</b></a>  <br/> </h6>                                  
                                </div>
                               <div class="clearfix"></div>
                           </div>

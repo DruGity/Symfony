@@ -75,5 +75,7 @@ my_shop_admin.product_photo_edit:
     defaults: { _controller: MyShopAdminBundle:ProductPhoto:edit }
     requirements:
         id: \d+
-
+my_shop_admin.user_add:
+    path: /user/add
+    defaults: { _controller: MyShopAdminBundle:User:add }
 

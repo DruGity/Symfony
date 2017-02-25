@@ -30,11 +30,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <ul>
                                             <li><a href="#">help</a></li>|
                                             <li><a href="#">Contact</a></li>|
-                                            <li><a href="#">Delivery information</a></li>
+                                            <li><a href="{{ path("my_shop_admin.user_add") }}">Добавить Администратора</a></li>
                                         </ul>
                                     </div>
                                     <div class="top_left">
-                                        <h2><span></span> Call us : +380932649872</h2>
+                                        
+                                        <h2><span></span> Call me : +380932649872</h2>
                                     </div>
                                         <div class="clearfix"> </div>
                                 </div>
@@ -56,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <div class="rgt-bottom">
                                             <div class="log">
                                                 <div class="login">
-                                                    <div id="loginContainer"><a id="loginButton" class=""><span>Login</span></a>
+                                                    <div id="loginContainer"><a href="{{ path("logout") }}" id="loginButton" class=""><span>Logout</span></a>
                                                         <div id="loginBox" style="display: none;">                
                                                             <form id="loginForm">
                                                                     <fieldset id="body">
@@ -71,7 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                         <input type="submit" id="login" value="Sign in">
                                                                         <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
                                                                     </fieldset>
-                                                                <span><a href="#">Forgot your password?</a></span>
+                                                                <span><a >Forgot your password?</a></span>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -80,13 +81,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             <div class="reg">
                                                 <a href="#">REGISTER</a>
                                             </div>
-                                        <div class="cart box_1">
-                                            <a href="checkout.html">
-                                                <h3> <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)<img src="/images/bag.png" alt=""></h3>
-                                            </a>    
-                                            <p><a href="#" class="simpleCart_empty">(empty card)</a></p>
-                                            <div class="clearfix"> </div>
-                                        </div>
                                         <div class="create_btn">
                                             <a href="#">CHECKOUT</a>
                                         </div>
@@ -113,6 +107,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <!--/sidebar-menu-->
                  <div class="sidebar-menu">
                     <header class="logo1">
+                        <h2 style = "margin-top: -2px;
+                            border: 1px solid #252525;
+                            text-align: right;
+                            line-height: 1;
+                            font-size: 19px;
+                            padding: 8px 10px;
+                            border-radius: 0px;
+                            color: #fff;
+                            float: left;">
+                            as {{ app.user }}</h2>
                         <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
                     </header>
                         <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
