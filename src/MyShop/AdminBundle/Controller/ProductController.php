@@ -97,16 +97,17 @@ class ProductController extends Controller
         /******************************************/ //обработка метода POST
         if ($request->isMethod("POST"))
         { 
+            $form->handleRequest($request);
+            
             if ($form->isSubmitted())  
             {
-                $filesAr = $request->files->get("myshop_defaultbundle_product");
+                /*$filesAr = $request->files->get("myshop_defaultbundle_product");
 
-                /* @var UploadedFile $photoFile */
                 $photoFile = $filesAr["icon_file_name"];
                 $result = $this->get("myshop_admin.image_uploader")->uploadImage($photoFile, $idProduct);
 
                 $product->setIconFileName($result->getSmallFileName());
-                $product->setProduct($product);
+                */
 
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($product);

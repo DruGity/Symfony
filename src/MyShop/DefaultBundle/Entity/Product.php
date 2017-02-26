@@ -50,12 +50,7 @@ class Product
      */
     private $comments;
 
-    /**
-    *@var string
-    *
-    *@ORM\Column(name="icon_file_name", type="string", length=255 )
-    */
-    private $iconFileName;
+    
 
     /**
      * @var Category
@@ -124,29 +119,7 @@ class Product
         return $this->model;
     }
 
-    /**
-     * Set iconFileName
-     *
-     * @param string $iconFileName
-     *
-     * @return Product
-     */
-    public function setIconFileName($iconFileName)
-    {
-        $this->iconFileName = $iconFileName;
-
-        return $this;
-    }
-
-    /**
-     * Get iconFileName
-     *
-     * @return string
-     */
-    public function getIconFileName()
-    {
-        return $this->iconFileName;
-    }
+    
 
     /**
      * Set price
