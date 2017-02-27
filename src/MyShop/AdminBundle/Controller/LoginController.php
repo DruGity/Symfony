@@ -15,9 +15,11 @@ class LoginController extends Controller
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
+
         
-        $mail = $this->get("myshop_admin.sending_mail");
-        $mail->sendEmail("Someone has entered as admin!"); 
+        
+        /*$mail = $this->get("myshop_admin.sending_mail");
+        $mail->sendEmail("Someone has entered as admin!"); */
 
         return [
             'last_username' => $lastUsername,

@@ -32,11 +32,11 @@ class UploadImageService
     }
 
     
-    public function uploadImage(UploadedFile $uploadedFile, $productId)
+    public function uploadImage(UploadedFile $uploadedFile, $productId = "" )
     {
         $imageNameGenerator = $this->imageNameGenerator;
 
-        $photoFileName = $productId . $imageNameGenerator->generateName() . "." . $uploadedFile->getClientOriginalExtension();
+        $photoFileName = $imageNameGenerator->generateName() . "." . $uploadedFile->getClientOriginalExtension();
         $photoDirPath = $this->uploadImageRootDir;
 
         $uploadedFile->move($photoDirPath, $photoFileName);

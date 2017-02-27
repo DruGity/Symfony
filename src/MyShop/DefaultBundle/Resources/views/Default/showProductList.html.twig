@@ -20,7 +20,14 @@
                         <a href="{{ path("myshop.product_info", {id:product.getId()}) }}">
                      <img src="/photos/{{ photo.getSmallFileName() }}" class="img-responsive " alt="">
                       </a>
+
+                      {% else %}
+
+                        <a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">
+                        <img src="/images/no-picture.jpg" class="img-responsive" alt="">
+                        </a>
                     {% endfor %}
+                    
                      <a href="{{ path("myshop.product_info", {id:product.getId()}) }}"><h2>{{ product.getModel() }}</h2></a>
                      <h3>Категория: <b>{{product.getCategory().getName()}}</b></h3>
                     <div class="price-details">

@@ -4,6 +4,7 @@ namespace MyShop\DefaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -26,6 +27,14 @@ class Product
      * @var string
      *
      * @ORM\Column(name="model", type="string", length=255)
+     *
+     * @Assert\NotBlank(message="Поле модель не должно быть пустым")
+     * @Assert\Length(
+     *     min = 2,
+     *     max = 30,
+     *     minMessage="Название модели слишком короткое, минимальное кол-во символов : {{ limit }}",
+     *     maxMessage="Название модели слишком длинное. Максимальное кол-во символов : {{ limit }}"
+     *)
      */
     private $model;
 
@@ -33,12 +42,19 @@ class Product
      * @var float
      *
      * @ORM\Column(name="price", type="float", nullable=true)
+     *
+     * @Assert\NotBlank(message="Введите цену цифровыми значениями!")
+     * @Assert\Type(type="float", message="Вы должны ввести числовое значение!")
+     * 
+     * 
+     *
      */
     private $price;
 
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Поле описание не должно быть пустым")
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
@@ -46,9 +62,18 @@ class Product
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Поле комментарии не должно быть пустым")
      * @ORM\Column(name="comments", type="text", nullable=true)
      */
     private $comments;
+
+    /**
+     *@var string
+     *
+     *@ORM\Column(name="icon_file_name", type="string", length=255 )
+     */
+    /*private $iconFileName;*/
+    
 
     
 
@@ -119,7 +144,28 @@ class Product
         return $this->model;
     }
 
-    
+    /**
+     * Set iconFileName
+     *
+     * @param string $iconFileName
+     *
+     * @return Product
+     */
+    public function setIconFileName($iconFileName)
+    {
+        $this->iconFileName = $iconFileName;
+
+        return $this;
+    }
+    /**
+     * Get iconFileName
+     *
+     * @return string
+     */
+    public function getIconFileName()
+    {
+        return $this->iconFileName;
+    }
 
     /**
      * Set price

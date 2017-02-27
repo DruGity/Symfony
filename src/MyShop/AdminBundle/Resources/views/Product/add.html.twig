@@ -3,7 +3,12 @@
 	<div class="progressbar-heading grids-heading">
 		<h2>Добавление товара</h2>					
 	</div>
-<form method="post" action="{{ path('my_shop_admin.product_add') }}">
+	<div>
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <b style="color: red">Ошибка при заполнении!</b> {{ flash_message }}<br>
+            {% endfor %}
+            </div>
+<form method="post" action="{{ path('my_shop_admin.product_add') }}" enctype="multipart/form-data">
 {{ form_widget(form) }}
     <input type="submit" value="Добавить" />
 </form>

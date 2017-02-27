@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request; 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 
 class ProductController extends Controller
@@ -23,7 +24,7 @@ class ProductController extends Controller
 
 		$form = $this->createForm(ProductType::class, $product); 
 
-        /******************************************/ //обработка метода POST
+        /******************************************/ 
         if ($request->isMethod("POST"))
         {
             $form->handleRequest($request);
@@ -37,7 +38,7 @@ class ProductController extends Controller
                 return $this->redirectToRoute("my_shop_admin.product_list"); 
             }
         }
-        /******************************************/ // окончание обработки метода ПОСТ
+        /******************************************/ 
 
         return [
             "form" => $form->createView(), 
@@ -80,8 +81,8 @@ class ProductController extends Controller
             $manager->remove($product);
             $manager->flush(); 
 
-            $mail = $this->get("myshop_admin.sending_mail");
-            $mail->sendEmail("Product" . " " . $product->getModel() . " " . "was deleted!");  
+            /*$mail = $this->get("myshop_admin.sending_mail");
+            $mail->sendEmail("Product" . " " . $product->getModel() . " " . "was deleted!");  */
 
             return $this->redirectToRoute("my_shop_admin.product_list");
     }
@@ -90,31 +91,40 @@ class ProductController extends Controller
      * @Template()
     */
     public function addAction(Request $request) 
-    {
+    {   
+
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
 
-        /******************************************/ //обработка метода POST
+        /******************************************/ 
         if ($request->isMethod("POST"))
         { 
             $form->handleRequest($request);
             
-            if ($form->isSubmitted())  
+            if ($form->isSubmitted() )  
             {
-                /*$filesAr = $request->files->get("myshop_defaultbundle_product");
+                /** @var ConstraintViolationList $errorList */
+                $errorList = $this->get('validator')->validate($product);
+                if ($errorList->count() > 0)
+                {
+                    foreach ($errorList as $error) {
+                        $this->addFlash('error', $error->getMessage());
+                    }
+                    return $this->redirectToRoute("my_shop_admin.product_add");
+                }
+                /*$filesAr = $request->files->get("myshop_defaultbundle_product"); // массив файлов который был загружен
 
-                $photoFile = $filesAr["icon_file_name"];
-                $result = $this->get("myshop_admin.image_uploader")->uploadImage($photoFile, $idProduct);
+                $photoFile = $filesAr["iconFile"]; //  обращение  к нужному файлу
+                $result = $this->get("myshop_admin.image_uploader")->uploadImage($photoFile);
 
                 $product->setIconFileName($result->getSmallFileName());
-                */
-
+                */              
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($product);
                 $manager->flush(); 
 
-                $mail = $this->get("myshop_admin.sending_mail");
-                $mail->sendEmail("Product" . " " . $product->getModel() . " " . "was added!");  
+                /*$mail = $this->get("myshop_admin.sending_mail");
+                $mail->sendEmail("Product" . " " . $product->getModel() . " " . "was added!");  */
 
                 return $this->redirectToRoute("my_shop_admin.product_list"); 
             }
@@ -122,7 +132,7 @@ class ProductController extends Controller
         /******************************************/
 
         return [
-            "form" => $form->createView() // возврат формы
+            "form" => $form->createView() 
 
         ];
     }
