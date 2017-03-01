@@ -17,8 +17,6 @@ class ProductController extends Controller
         /** @var Product $product */
         $product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($id);
 
-        $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($id);
-
         /*$photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($idProduct);*/
 
         $productArray = [
@@ -31,7 +29,7 @@ class ProductController extends Controller
             'photo' => $photo->getPhotos()->getSmallFileName()
          ];
 
-        $response = new JsonResponse(print_r($productArray));
+        $response = new JsonResponse($productArray);
         return $response;
     }
 
@@ -42,28 +40,27 @@ class ProductController extends Controller
 
      	$productArr = $photo->createQueryBuilder('p')->getQuery()->getArrayResult();
 
-        $response = new JsonResponse(print_r($productArr));
+        $response = new JsonResponse($productArr);
         return $response;
     }
 
     public function photoDetailsAction($idProduct)
     {
 
-        $photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($idProduct);
+        $product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($idProduct);
+
+        $photos = $product->getPhotos();
 
 
         // Выдаёт огромный список, вместо нужного массива...
         $productPhoto = [
 
-        	'id' => $photo->getId(),
-        	'title' => $photo->getTitle(),
-            'name' => $photo->getSmallFileName(),
-            'original_name' => $photo->getFileName(),
-            'product' => $photo->getProduct() 
+        	'id' => $photos->getId()
+        	
 
          ];
 
-        $response = new JsonResponse(print_r($productPhoto));
+        $response = new JsonResponse($productPhoto);
         return $response;
     }
 
@@ -74,7 +71,7 @@ class ProductController extends Controller
 
         $productList = $products->createQueryBuilder('q')->getQuery()->getArrayResult();
 
-        return new JsonResponse(print_r($productList) );
+        return new JsonResponse($productList);
          
     }
     
