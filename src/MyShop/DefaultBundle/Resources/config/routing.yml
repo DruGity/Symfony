@@ -23,5 +23,23 @@ myshop.product_comments:
 myshop.category_list:
     path: /category/list
     defaults: { _controller: MyShopDefaultBundle:Default:showCategoryList }
-    
 
+myshop.api_product:
+    path: /api/product/{id}
+    defaults: { _controller: MyShopDefaultBundle:API/REST/Product:details }
+    requirements:
+        id: \d+
+
+myshop.api_products:
+    path: /api/products
+    defaults: { _controller: MyShopDefaultBundle:API/REST/Product:list }
+    
+myshop.api_photos:
+    path: /api/photos/
+    defaults: { _controller: MyShopDefaultBundle:API/REST/Product:photo }
+
+myshop.api_photo_details:
+    path: /api/photo/{idProduct}
+    defaults: { _controller: MyShopDefaultBundle:API/REST/Product:photoDetails }
+    requirements:
+        idProduct: \d+
