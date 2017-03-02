@@ -17,16 +17,13 @@ class ProductController extends Controller
         /** @var Product $product */
         $product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($id);
 
-        /*$photo = $this->getDoctrine()->getRepository("MyShopDefaultBundle:ProductPhoto")->find($idProduct);*/
-
         $productArray = [
             'model' => $product->getModel(),
             'price' => $product->getPrice(),
             'description' => $product->getDescription(),
             'comments' => $product->getComment(),
             'date' => $product->getDateCreatedAt()->format('d.m.Y'),
-            'category' => $product->getCategory()->getName(),
-            'photo' => $photo->getPhotos()->getSmallFileName()
+            'category' => $product->getCategory()->getName()
          ];
 
         $response = new JsonResponse($productArray);
@@ -49,30 +46,35 @@ class ProductController extends Controller
 
         $product = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->find($idProduct);
 
-        $photos = $product->getPhotos();
+        $photos = $product->getPhotos(); // массив
 
+         $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
 
-        // Выдаёт огромный список, вместо нужного массива...
         $productPhoto = [
 
-        	'id' => $photos->getId()
-        	
+        	'id' => $photos[0]->getId(),
+        	'title' => $photos[0]->getTitle(),
+        	'file_name' => $photos[0]->getFileName(),
+        	'small_file_name' =>$photoDirPath . $photos[0]->getSmallFileName(),
+        	'image_url' => $_SERVER["HTTP_HOST"] . '/' . "photos" . '/' .$photos[0]->getSmallFileName()
 
          ];
 
-        $response = new JsonResponse($productPhoto);
+         echo var_dump($_SERVER["HTTP_HOST"]);
+
+        $response = new JsonResponse(print_r($productPhoto));
         return $response;
     }
 
-    public function listAction()
+	 public function listAction()
     {
         
         $products = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product");
 
-        $productList = $products->createQueryBuilder('q')->getQuery()->getArrayResult();
+        $products->createQueryBuilder('q')->getQuery()->getArrayResult();
 
         return new JsonResponse($productList);
          
-    }
+    }    
     
 }
