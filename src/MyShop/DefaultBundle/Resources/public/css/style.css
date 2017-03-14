@@ -706,6 +706,7 @@ select.item_Size {
     border: 1px solid #555;
     font-weight: 300;
     color: #252525;
+    margin-bottom: 15px; 
 }
 /* Login Button */
 #loginButton { 
@@ -876,8 +877,7 @@ input:focus {
 	right: 5px;
 }
 .log {
-  float: left;
-  width: 19%;
+  float: right;
 }
 .reg {
   float: left;

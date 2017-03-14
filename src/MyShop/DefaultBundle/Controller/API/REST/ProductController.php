@@ -48,21 +48,18 @@ class ProductController extends Controller
 
         $photos = $product->getPhotos(); // массив
 
-         $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
+        $photoDirPath = $this->get("kernel")->getRootDir() . "/../web/photos/";
 
         $productPhoto = [
 
         	'id' => $photos[0]->getId(),
         	'title' => $photos[0]->getTitle(),
         	'file_name' => $photos[0]->getFileName(),
-        	'small_file_name' =>$photoDirPath . $photos[0]->getSmallFileName(),
-        	'image_url' => $_SERVER["HTTP_HOST"] . '/' . "photos" . '/' .$photos[0]->getSmallFileName()
+        	'image_url' =>"http://" . $_SERVER["HTTP_HOST"] . '/' . "photos" . '/' .$photos[0]->getSmallFileName()
 
          ];
 
-         echo var_dump($_SERVER["HTTP_HOST"]);
-
-        $response = new JsonResponse(print_r($productPhoto));
+        $response = new JsonResponse($productPhoto);
         return $response;
     }
 
@@ -71,7 +68,7 @@ class ProductController extends Controller
         
         $products = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product");
 
-        $products->createQueryBuilder('q')->getQuery()->getArrayResult();
+        $productList = $products->createQueryBuilder('q')->getQuery()->getArrayResult();
 
         return new JsonResponse($productList);
          

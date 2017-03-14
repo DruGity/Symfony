@@ -1,7 +1,7 @@
 {% extends "@MyShopAdmin/layout.html.twig" %}
 {% block body %}
 <h2>Добавление категории</h2>
-<form action="{{ path("my_shop_admin.category_add") }}" method="POST">
+<form action="{{ path("my_shop_admin.category_add") }}" method="POST" enctype="multipart/form-data">
     {{ form_widget(form) }}
     <input type="submit"/>
 </form>

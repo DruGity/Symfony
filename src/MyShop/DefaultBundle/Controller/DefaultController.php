@@ -8,6 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use MyShop\DefaultBundle\Entity\ProductPhoto;
+use MyShop\DefaultBundle\Entity\Category;
+use MyShop\DefaultBundle\Form\CategoryType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use GuzzleHttp\Client;
 
 class DefaultController extends Controller
 {	
@@ -27,8 +31,14 @@ class DefaultController extends Controller
         $doctrine = $this->getDoctrine();
         $manager = $doctrine->getManager();
 
-        $repository = $manager->getRepository("MyShopDefaultBundle:Product"); // репозиторий в котором хранятся данные (Product.php)
+        $repository = $manager->getRepository("MyShopDefaultBundle:Product");
+
         $product = $repository->find($id); // выбор id товара
+
+        if ($product == null) {
+            throw new NotFoundHttpException();
+            
+        }
 
         return [
             "product" => $product
@@ -45,7 +55,9 @@ class DefaultController extends Controller
 
         $repository = $manager->getRepository("MyShopDefaultBundle:Product");
 
-        $productList = $repository->findAll();
+        /*$dql = 'select p from MyShopDefaultBundle:Product p order by p.price desc';
+        $productList = $this->getDoctrine()->getManager()->createQuery($dql)->getResult();*/ // пример сортировки asc desc
+         $productList = $repository->findAll();
 
         return [
             "productList" => $productList
@@ -74,19 +86,27 @@ class DefaultController extends Controller
     */
     public function showCategoryListAction()
     {
-        $doctrine = $this->getDoctrine();
-        $manager = $doctrine->getManager();
+        $categoryList = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Category")->findAll();
 
-        $repository = $manager->getRepository("MyShopDefaultBundle:Product");
-
-        $productList = $repository->findAll();
-
-        return [
-            "productList" => $productList
-        ];
+        return ["categoryList" => $categoryList];
     }
 
-   
+    public function listByCategoryAction($id_category)
+    {
+        $category = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Category")->find($id_category);
+        $productList = $category->getProductList();
+
+        return $this->render("@MyShopDefault/Default/showProductList.html.twig", [    
+            "productList" => $productList   // что бы не создавать новую вьюшку
+        ]);
+    }
+        //API GUZZLE CLIENT 
+    public function guzzleClientAction() 
+    {
+        $client = new Client();
+        $response = $client->request("POST", "http://127.0.0.1:8000/api/products");
+        var_dump($response);
+    }
 }
 
 

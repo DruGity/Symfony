@@ -52,6 +52,12 @@ my_shop_admin.category_edit:
     requirements:
         id_category: \d+
 
+my_shop.admin.category_icon_delete:
+    path:   /category_icon/{id_category}/delete
+    defaults: { _controller: MyShopAdminBundle:Category:deleteIcon }
+    requirements:
+        id_category: \d+        
+
 my_shop_admin.product_photo_add:
     path:   /product/{idProduct}/photo/add
     defaults: { _controller: MyShopAdminBundle:ProductPhoto:add }
@@ -79,3 +85,14 @@ my_shop_admin.user_add:
     path: /user/add
     defaults: { _controller: MyShopAdminBundle:User:add }
 
+my_shop_admin.load_some_users:
+    path: /load/some/users
+    defaults: { _controller: MyShopAdminBundle:Default:loadUsers}
+
+my_shop_admin.load_some_users:
+    path: /load/some/users
+    defaults: { _controller: MyShopAdminBundle:Default:loadUsers}    
+
+my_shop_admin.load_some_products:
+    path: /load/some/products
+    defaults: { _controller: MyShopAdminBundle:Default:loadProduct}    

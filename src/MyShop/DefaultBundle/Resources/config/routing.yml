@@ -19,10 +19,15 @@ myshop.product_comments:
     requirements:
         id: \d+
 
-
 myshop.category_list:
     path: /category/list
     defaults: { _controller: MyShopDefaultBundle:Default:showCategoryList }
+
+my_shop.product_list_by_category:
+    path: /category/{id_category}/product/list
+    defaults: { _controller: MyShopDefaultBundle:Default:listByCategory }
+    requirements:
+        id_category: \d+
 
 myshop.api_product:
     path: /api/product/{id}
@@ -43,3 +48,14 @@ myshop.api_photo_details:
     defaults: { _controller: MyShopDefaultBundle:API/REST/Product:photoDetails }
     requirements:
         idProduct: \d+
+
+myshop.api_list:
+    path: /api/list
+    defaults: {_controller: MyShopDefaultBundle:API/REST/ApiList:listApi}
+
+myshop.guzzle_client_rest:
+    path: client/rest
+    defaults: {_controller: MyShopDefaultBundle:Default:guzzleClient}
+
+               
+

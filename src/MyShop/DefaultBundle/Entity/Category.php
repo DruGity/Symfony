@@ -30,6 +30,13 @@ class Category
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="icon_file_name", type="string", length=255, nullable = true)
+     */
+    private $iconFileName;
+
+    /**
      * @var ArrayCollection // тип массива
      *
      * @ORM\OneToMany(targetEntity="MyShop\DefaultBundle\Entity\Product", mappedBy="category", cascade={"All"}) \\ вид связи и обратная связь
@@ -71,6 +78,29 @@ class Category
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * Set iconFileName
+     *
+     * @param mixed $iconFileName
+     *
+     */
+    public function setIconFileName($iconFileName)
+    {
+        $this->iconFileName = $iconFileName;
+
+        return $this;
+    }
+
+    /**
+     * Get iconFileName
+     *
+     * @return mixed
+     */
+    public function getIconFileName()
+    {
+        return $this->iconFileName;
     }
 
     /**
