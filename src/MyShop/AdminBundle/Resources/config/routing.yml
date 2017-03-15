@@ -81,6 +81,7 @@ my_shop_admin.product_photo_edit:
     defaults: { _controller: MyShopAdminBundle:ProductPhoto:edit }
     requirements:
         id: \d+
+
 my_shop_admin.user_add:
     path: /user/add
     defaults: { _controller: MyShopAdminBundle:User:add }
@@ -93,6 +94,10 @@ my_shop_admin.load_some_users:
     path: /load/some/users
     defaults: { _controller: MyShopAdminBundle:Default:loadUsers}    
 
-my_shop_admin.load_some_products:
-    path: /load/some/products
+my_shop_admin.load_some_product:
+    path: /load/some/product
     defaults: { _controller: MyShopAdminBundle:Default:loadProduct}    
+
+my_shop_admin.load_some_category:
+    path: /load/some/category
+    defaults: { _controller: MyShopAdminBundle:Default:loadCategory}    

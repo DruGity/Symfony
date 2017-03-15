@@ -28,10 +28,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="header_top">
                                     <div class="top_right">
                                         <ul>
-                                            <li><a href="{{ path("my_shop_admin.load_some_users") }}">Добавить тест-админа</a></li>|
-                                            <li><a href="#">Добавить тест-товар</a></li>|
-                                            <li><a href="#">API</a></li>|
-                                            <li><a href="{{ path("my_shop_admin.user_add") }}">Добавить Администратора</a></li>
+                                            <li><a href="{{ path("my_shop_admin.load_some_users") }}">Демо-админ</a></li>|
+                                            <li><a href="#">Демо-товар</a></li>|
+                                            {#    {{ path("my_shop_admin.load_some_product") }}    #}
+                                            <li><a href="{{ path("my_shop_admin.load_some_category") }}">Демо-категория</a></li>|
+                                            <li><a href="{{ path("my_shop_admin.user_add") }}">Добавить Администратора</a></li>|
+                                            <li><a href="#">API</a></li>
                                         </ul>
                                     </div>
                                     <div class="top_left">
