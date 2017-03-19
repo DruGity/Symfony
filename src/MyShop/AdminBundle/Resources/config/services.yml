@@ -29,6 +29,11 @@ services:
         calls:
              - ["setUploadImageRootDir", ["%image_root_dir%"]]
 
+    myshop_admin.product_import_export:
+        class: MyShop\AdminBundle\Services\ProductImportExport
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
              
 
              
