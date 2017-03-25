@@ -109,3 +109,23 @@ my_shop_admin.products_import_csv:
 my_shop_admin.products_export_csv:
     path:   /products/export/csv
     defaults: { _controller: MyShopAdminBundle:ProductsLoader:exportProducts } 
+
+my_shop_admin.page_list:
+    path:   /pages
+    defaults: { _controller: MyShopAdminBundle:Page:index }
+
+my_shop_admin.page_add:
+    path:   /page/add
+    defaults: { _controller: MyShopAdminBundle:Page:add }
+
+my_shop_admin.page_edit:
+    path:   /page/{id}/edit
+    defaults: { _controller: MyShopAdminBundle:Page:edit }
+    requirements:
+        id: \d+
+
+my_shop_admin.page_delete:
+    path:   /page/{id}/delete
+    defaults: { _controller: MyShopAdminBundle:Page:delete }
+    requirements:
+        id: \d+

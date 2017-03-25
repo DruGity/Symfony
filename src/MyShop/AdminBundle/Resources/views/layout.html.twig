@@ -29,7 +29,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <div class="top_right">
                                         <ul>
                                             <li><a href="{{ path("my_shop_admin.load_some_users") }}">Демо-админ</a></li>|
-                                            <li><a href="#">Демо-товар</a></li>|
+                                            <li><a href="{{ path("my_shop_admin.load_some_product") }}">Демо-товар</a></li>|
                                             {#    {{ path("my_shop_admin.load_some_product") }}    #}
                                             <li><a href="{{ path("my_shop_admin.load_some_category") }}">Демо-категория</a></li>|
                                             <li><a href="{{ path("my_shop_admin.user_add") }}">Добавить Администратора</a></li>|
@@ -52,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="header">
                                 <div class="head-t">
                                     <div class="logo">
-                                        <a href="#"><img src="/images/mainlogo.jpg" class="img-responsive" alt=""> </a>
+                                        <a href="https://itschool-hillel.org/"><img src="/images/mainlogo.jpg" class="img-responsive" alt=""> </a>
                                         
                                          
                                     </div>
@@ -114,7 +114,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                            </ul>
                                         </li>
                                         
-                                         <li id="menu-academico" ><a href="{{ path("my_shop_admin.product_list") }}"><i class="fa fa-file-text-o"></i> <span>Все Товары</span></a></li>
+                                         <li id="menu-academico" ><a href="{{ path("my_shop_admin.product_list") }}"><i class="fa fa-file-text-o"></i> <span>Все Товары</span></a>
+                                         </li>
+
+                                         <li id="menu-academico" ><a href="{{ path("my_shop_admin.page_list") }}"><i class="lnr lnr-book"></i> <span>Список страниц</span></a>
+                                         </li>
                                     </ul>
                                   </ul>
                                 </div>

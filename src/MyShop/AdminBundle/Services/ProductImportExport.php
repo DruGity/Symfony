@@ -42,9 +42,7 @@ private $logger;
             throw new \Exception("Can't open file!");
         }
 
-        // $rows = array_map('str_getcsv', file('myfile.csv'));
-
-        set_time_limit(0);
+        // set_time_limit(0);
 
         if ($clearProducts == true)
         {

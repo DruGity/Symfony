@@ -57,5 +57,6 @@ myshop.guzzle_client_rest:
     path: client/rest
     defaults: {_controller: MyShopDefaultBundle:Default:guzzleClient}
 
-               
-
+myshop.page:
+    path:  /page/{pageKey}
+    defaults: {_controller: MyShopDefaultBundle:Page:index} #этот роут держать на последнем месте

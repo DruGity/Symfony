@@ -40,7 +40,7 @@ class PreDataLoader
 		$product->setDescription("description number" . $randNumber);
 		$product->setIconFileName("icon" . $randNumber);
 		$product->setComment("comment number" . $randNumber);
-		$product->setCategory("category number" . $randNumber);
+		$product->setCategory("smartfones" . $randNumber);
 		$product->setDateCreatedAt("date number" . $randNumber);
 
 		$this->manager->persist($product);
