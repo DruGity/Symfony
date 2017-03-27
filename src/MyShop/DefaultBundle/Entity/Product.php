@@ -80,7 +80,7 @@ class Product
     /**
      * @var Category
      *
-     * @ORM\ManyToOne(targetEntity="MyShop\DefaultBundle\Entity\Category", inversedBy="productList") // указание связей: прямой и обратной
+     * @ORM\ManyToOne(targetEntity="MyShop\DefaultBundle\Entity\Category", inversedBy="productList", cascade={"persist"}) // указание связей: прямой и обратной
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id") // указание доп id для связи таблиц
     */
     private $category;
@@ -337,4 +337,5 @@ class Product
     {
         return $this->photos;
     }
+
 }
