@@ -11,8 +11,10 @@ my_shop_admin.product_add:
     defaults: { _controller: MyShopAdminBundle:Product:add }
 
 my_shop_admin.product_list:
-    path:   /product/list
-    defaults: { _controller: MyShopAdminBundle:Product:list }
+    path:   /product/list/{page}
+    defaults: { _controller: MyShopAdminBundle:Product:list, page: 1 }
+    requirements: 
+        page: \d+
 
 my_shop.admin.product_delete:
     path:   /product/{id}/delete

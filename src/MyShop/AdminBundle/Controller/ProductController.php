@@ -59,9 +59,14 @@ class ProductController extends Controller
 	/**
      * @Template()
     */
-	public function listAction()
+	public function listAction($page = 1)
 	{      
-		$productList = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->findAll();
+		// $productList = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Product")->findAll();
+        $query = $this->getDoctrine()->getManager()->createQuery("select p, c from MyShopDefaultBundle:Product p join p.category c");
+
+        $paginator = $this->get("knp_paginator");
+        $productList = $paginator->paginate($query, $page, 4);
+
 		return ["productList" => $productList]; 
 	}
 

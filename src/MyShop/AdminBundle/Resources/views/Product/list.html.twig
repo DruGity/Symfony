@@ -6,6 +6,7 @@
     <!-- start content -->
    <div class="w_content">
         <div class="women">
+
             <a href="{{ path("my_shop_admin.product_add")}}"><h4>Добавить товар &nbsp; &nbsp;  </h4></a> 
             <a href="{{ path("my_shop_admin.products_export_csv")}}"><h4>Скачать .csw &nbsp; &nbsp;</h4></a>
             <a href="{{ path("my_shop_admin.products_import_csv")}}"><h4>Загрузить .csw</h4></a>
@@ -53,9 +54,13 @@
                   </div>
                 </div>
             </div>
-
             {% endfor %}
 
+
+{% endblock %}
+
+{% block footer %}
+{{ knp_pagination_render(productList) }}
 {% endblock %}
 
 {#
