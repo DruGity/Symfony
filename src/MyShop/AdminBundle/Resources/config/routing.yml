@@ -1,6 +1,6 @@
 login:
     path: /login
-    defaults: { _controller: MyShopAdminBundle:Login:login }
+    defaults: { _controller: MyShopAdminBundle:Login:login } 
 
 my_shop_admin.index:
     path:     /
@@ -9,6 +9,13 @@ my_shop_admin.index:
 my_shop_admin.product_add:
     path:   /product/add
     defaults: { _controller: MyShopAdminBundle:Product:add }
+
+my_shop_admin.test:
+    path:   /test
+    defaults: { _controller: MyShopAdminBundle:Default:test }
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 my_shop_admin.product_list:
     path:   /product/list/{page}

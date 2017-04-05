@@ -3,12 +3,33 @@
 namespace MyShop\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\HttpFoundation\Request; 
+use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function testAction(Request $request)
     {
-        return $this->render('MyShopAdminBundle:Default:index.html.twig');
+        $response = new JsonResponse([
+            "name" => "Aleksey",
+            "Second Name" => "Chudak",
+            "time" => time()
+            ]);
+        
+        return $response;
+    }
+
+    /**
+    * @Template()
+    */
+    public function indexAction(Request $request)
+    {
+        $request->setLocale('fr');
     }
 
     public function loadUsersAction()

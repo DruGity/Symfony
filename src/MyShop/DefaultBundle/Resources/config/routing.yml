@@ -10,8 +10,8 @@ myshop.main_page:
     defaults: { _controller: MyShopDefaultBundle:Default:index }
 
 myshop.product_list:
-    path: /product/list
-    defaults: { _controller: MyShopDefaultBundle:Default:showProductList }
+    path: /product/list/{page}
+    defaults: { _controller: MyShopDefaultBundle:Default:showProductList, page: 1  }
 
 myshop.product_comments:
     path: /product/comments/{id}

@@ -7,11 +7,17 @@
    <div class="w_content">
         <div class="women">
 
+                    {% set counter = 0 %}
+
+                    {% for product in productList %}
+                    {% set counter = counter + 1 %}
+                    {% endfor %}
+
             <a href="{{ path("my_shop_admin.product_add")}}"><h4>Добавить товар &nbsp; &nbsp;  </h4></a> 
             <a href="{{ path("my_shop_admin.products_export_csv")}}"><h4>Скачать .csw &nbsp; &nbsp;</h4></a>
             <a href="{{ path("my_shop_admin.products_import_csv")}}"><h4>Загрузить .csw</h4></a>
             <ul class="w_nav">
-                        <li><a href="#"><h4>Количество товаров - <span>5 штук</span> </h4></a></li>
+                        <li><a href="#"><h4>Количество товаров - <span>{{ counter }}</span> </h4></a></li>
                         <div class="clear"></div>   
              </ul>
              <div class="clearfix"></div>   
@@ -22,8 +28,6 @@
         <div class="grids_of_4">
           <div class="grid1_of_4">
                 <div class="content_box"><a href="#">
-
-                   
       
                     {% for photo in product.getPhotos() %}
 

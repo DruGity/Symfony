@@ -48,17 +48,15 @@ class DefaultController extends Controller
     /**
      * @Template()
     */
-    public function showProductListAction()
+    public function showProductListAction($page = 1)
     {
-        $doctrine = $this->getDoctrine();
-        $manager = $doctrine->getManager();
 
-        $repository = $manager->getRepository("MyShopDefaultBundle:Product");
+        $query = $this->getDoctrine()->getManager()->createQuery("select p, c from MyShopDefaultBundle:Product p join p.category c");
+        $paginator = $this->get("knp_paginator");
+        $productList = $paginator->paginate($query, $page, 4);
 
         /*$dql = 'select p from MyShopDefaultBundle:Product p order by p.price desc';
         $productList = $this->getDoctrine()->getManager()->createQuery($dql)->getResult();*/ // пример сортировки asc desc
-         $productList = $repository->findAll();
-
         return [
             "productList" => $productList
         ];
