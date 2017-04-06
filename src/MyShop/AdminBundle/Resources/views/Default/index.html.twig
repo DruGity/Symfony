@@ -7,8 +7,8 @@
 <script type = "application/javascript" src="{{ asset('bundles/myshopadmin/jquery-3.2.0.min.js') }}"></script>
 <script>
 	$(function() {
-		$.get("/admin/test", function(responseData){
-			console.log(responseData);
+		$.get((Routing.generate('my_shop_admin.test')), function(responseData){
+			alert("Press Ok!");
 			/*(Routing.generate('my_shop_admin.test' )*/
 		});
 	});
