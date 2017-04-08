@@ -13,6 +13,17 @@
                     {% set counter = counter + 1 %}
                     {% endfor %}
 
+                    <script type="application/javascript" src="{{ asset('bundles/myshopadmin/jquery-3.2.0.min.js') }}"></script>
+                    <script type="application/javascript">
+                        function del(id)
+                        {
+                        var url = Routing.generate('my_shop.admin.product_delete_ajax', {"id":id});
+                        $.get(url, function(data) {
+                        alert("Товар удалён!");
+                            });
+                        }
+                    </script>
+
             <a href="{{ path("my_shop_admin.product_add")}}"><h4>Добавить товар &nbsp; &nbsp;  </h4></a> 
             <a href="{{ path("my_shop_admin.products_export_csv")}}"><h4>Скачать .csw &nbsp; &nbsp;</h4></a>
             <a href="{{ path("my_shop_admin.products_import_csv")}}"><h4>Загрузить .csw</h4></a>
@@ -35,8 +46,6 @@
                      <img src="/photos/{{ photo.getSmallFileName() }}" class="img-responsive " alt="">
                      </a>
 
-                      
-
                     {% else %}
 
                     <a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">
@@ -49,6 +58,7 @@
                     <h4><a href="{{ path("my_shop_admin.product_edit", {id:product.id}) }}"> {{ product.getModel() }}</a></h4>
                      <p>{{ product.getCategory().getName() }}</p>
                     <h4><a href="{{ path("my_shop_admin.product_photo_list", {idProduct:product.getId()}) }}">Картинки</a></h4>
+                    <h4><a href="#" onclick="del({{ product.id }})" >Удалить Ajax</a></h4>
                     
                      <div class="item_add"><span class="item_price"><h6> ${{ product.getPrice() }}</h6></span></div>
                      

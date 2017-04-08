@@ -24,8 +24,8 @@ myshop.category_list:
     defaults: { _controller: MyShopDefaultBundle:Default:showCategoryList }
 
 my_shop.product_list_by_category:
-    path: /category/{id_category}/product/list
-    defaults: { _controller: MyShopDefaultBundle:Default:listByCategory }
+    path: /category/{id_category}/product/list/{page}
+    defaults: { _controller: MyShopDefaultBundle:Default:listByCategory, page: 1 }
     requirements:
         id_category: \d+
 

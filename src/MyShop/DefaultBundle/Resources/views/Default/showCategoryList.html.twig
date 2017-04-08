@@ -13,9 +13,10 @@
         </div>
         
           <div class="section group">
-           {% for cat in categoryList %}
+           {% for cat in categoryList if  cat.getIconFileName() %}
+            
                 <div class="grid_1_of_4 images_1_of_4">
-
+                    
                      <a href="{{ url("my_shop.product_list_by_category", {id_category:cat.id}) }}"><img src="/photos/{{ cat.getIconFileName() }}" class="img-responsive " alt=""></a>
                      <a href="{{ url("my_shop.product_list_by_category", {id_category:cat.id}) }}"><h2>{{ cat.name }}</h2></a>
                     <div class="price-details">
@@ -24,9 +25,22 @@
                         </div>
                              <div class="clear"></div>
                     </div>
-                     
                 </div>
-                {% endfor %}
+
+                {% else %}
+                    <div class="grid_1_of_4 images_1_of_4">
+                    
+                     <a href="{{ url("my_shop.product_list_by_category", {id_category:cat.id}) }}"><img src="/images/no-picture.png" class="img-responsive " alt=""></a>
+                     <a href="{{ url("my_shop.product_list_by_category", {id_category:cat.id}) }}"><h2>{{ cat.name }}</h2></a>
+                    <div class="price-details">
+                       <div class="price-number">
+                            <p><span class="rupees">Количество товаров:</span></p>
+                        </div>
+                             <div class="clear"></div>
+                    </div>
+                </div>
+
+            {% endfor %}
                
             </div>
     

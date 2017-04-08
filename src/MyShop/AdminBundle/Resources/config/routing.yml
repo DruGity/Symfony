@@ -25,6 +25,14 @@ my_shop_admin.product_list:
     requirements: 
         page: \d+
 
+my_shop.admin.product_delete_ajax:
+    path:   /product/{id}/delete/ajax
+    defaults: { _controller: MyShopAdminBundle:Product:deleteAjax }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
 my_shop.admin.product_delete:
     path:   /product/{id}/delete
     defaults: { _controller: MyShopAdminBundle:Product:delete }
@@ -46,8 +54,8 @@ my_shop_admin.category_list:
     defaults: { _controller: MyShopAdminBundle:Category:list }
 
 my_shop_admin.product_list_by_category:
-    path:   /category/{id_category}/product/list
-    defaults: { _controller: MyShopAdminBundle:Product:listByCategory }
+    path:   /category/{id_category}/product/list/{page}
+    defaults: { _controller: MyShopAdminBundle:Product:listByCategory, page: 1}
     requirements:
         id_category: \d+
 

@@ -89,10 +89,12 @@ class DefaultController extends Controller
         return ["categoryList" => $categoryList];
     }
 
-    public function listByCategoryAction($id_category)
+    public function listByCategoryAction($id_category, $page = 1)
     {
-        $category = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Category")->find($id_category);
-        $productList = $category->getProductList();
+        $dql = "select p, c from MyShopDefaultBundle:Product p join p.category c where c.id = :idCategory";
+        $query = $this->getDoctrine()->getManager()->createQuery($dql)->setParameter("idCategory", $id_category);
+        $paginator = $this->get("knp_paginator");
+        $productList = $paginator->paginate($query, $page, 4);
 
         return $this->render("@MyShopDefault/Default/showProductList.html.twig", [    
             "productList" => $productList   // что бы не создавать новую вьюшку

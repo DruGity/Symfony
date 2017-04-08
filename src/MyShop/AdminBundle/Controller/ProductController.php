@@ -46,10 +46,16 @@ class ProductController extends Controller
         ];
 	}
 
-    public function listByCategoryAction($id_category)
+    public function listByCategoryAction($id_category, $page = 1)
     {
-        $category = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Category")->find($id_category);
-        $productList = $category->getProductList();
+
+        $dql = "select p, c from MyShopDefaultBundle:Product p join p.category c where c.id = :idCategory";
+        $query = $this->getDoctrine()->getManager()->createQuery($dql)->setParameter("idCategory", $id_category);
+        $paginator = $this->get("knp_paginator");
+        $productList = $paginator->paginate($query, $page, 4);
+
+        /*$category = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Category")->find($id_category);
+        $productList = $category->getProductList();*/
 
         return $this->render("@MyShopAdmin/Product/list.html.twig", [    
             "productList" => $productList   // что бы не создавать новую вьюшку
@@ -70,6 +76,13 @@ class ProductController extends Controller
 		return ["productList" => $productList]; 
 	}
 
+    public function deleteAjaxAction($id)
+    {
+        $this->deleteAction($id);
+
+        $responseJson = new JsonResponse();
+        return $responseJson;
+    }
 
 	public function deleteAction($id)
     {   
@@ -84,7 +97,7 @@ class ProductController extends Controller
             }
 
             $manager->remove($product);
-            $manager->flush(); 
+            $manager->flush();
 
             /*$mail = $this->get("myshop_admin.sending_mail");
             $mail->sendEmail("Product" . " " . $product->getModel() . " " . "was deleted!");  */
