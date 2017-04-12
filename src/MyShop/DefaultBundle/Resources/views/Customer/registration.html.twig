@@ -1,0 +1,13 @@
+{% extends "@MyShopDefault/layout.html.twig" %}
+
+{% block body %}
+
+    <fieldset>
+        <legend>Регистрация</legend>
+        <form action="{{ path('myshop.registration') }}" method="POST">
+            {{ form_widget(form) }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </fieldset>
+    
+{% endblock %}

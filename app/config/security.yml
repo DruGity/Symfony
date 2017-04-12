@@ -6,8 +6,13 @@ security:
     providers:
         db_provider:
             entity:
-                class: MyShopAdminBundle:User
+                class: MyShop\AdminBundle\Entity\User
                 property: username
+
+        customer_provider:
+            entity:
+                class: MyShop\DefaultBundle\Entity\Customer
+                property: email
 
         # in_memory:
         #     memory:
@@ -18,6 +23,7 @@ security:
 
     encoders:
         MyShop\AdminBundle\Entity\User: bcrypt
+        MyShop\DefaultBundle\Entity\Customer: bcrypt
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -26,14 +32,25 @@ security:
             security: false
 
         main:
+            pattern: /admin/*
             provider: db_provider
             anonymous: ~
             form_login:
-                login_path: login
+                login_path: login #можно относительным урлом или названием роута 
                 check_path: login
             logout:
-                path:   /logout
+                path:   /logout 
                 target: /admin/login
+
+        shop_customer:
+            provider: customer_provider
+            anonymous: ~
+            form_login:
+                login_path: myshop.login  
+                check_path: myshop.login
+            logout:
+                path:   myshop.logout
+                target: /
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -44,4 +61,5 @@ security:
     access_control:
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/customer/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

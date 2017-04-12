@@ -3,7 +3,27 @@
 <div class="single-bottom2">
                     <h6><a href="{{ path("my_shop_admin.category_add") }}">Добавить категорию</a></h6>
                 {% for cat in categoryList %}
-                        <div class="product">
+                    {% if cat.iconFileName is empty %}
+                            <div class="product">
+                           <div class="product-desc">
+                                <div class="product-img">
+                                  <a href="{{ url("my_shop_admin.product_list_by_category", {id_category:cat.id}) }}">
+                                   <img src="/images/no-picture.png" class="img-responsive " alt="">
+                                  </a>
+                               </div>
+                               <div class="prod1-desc">
+                                   <h5><a class="product_link" href="{{ url("my_shop_admin.product_list_by_category", {id_category:cat.id}) }}">{{ cat.name }}</h5></a>
+                                   <h6 class="product_descr"><a href="{{ url("my_shop_admin.category_delete", {id_category:cat.id}) }}"><b>Удалить категорию</b></a> <br/> </h6> 
+                                   <h6 class="product_descr"><a href="{{ url("my_shop_admin.category_edit", {id_category:cat.id}) }}"><b>Редактировать категорию</b></a>  <br/> </h6>   
+                                   <h6 class="product_descr"><a href="{{ url("my_shop.admin.category_icon_delete", {id_category:cat.id}) }}"><b>Удалить иконку</b></a> <br/> </h6>                                 
+                               </div>
+                              <div class="clearfix"></div>
+                          </div>
+                         <div class="clearfix"></div>
+                      
+                     </div>
+                    {% else %}                      
+                      <div class="product">
                            <div class="product-desc">
                                 <div class="product-img">
                                   <a href="{{ url("my_shop_admin.product_list_by_category", {id_category:cat.id}) }}">
@@ -19,7 +39,10 @@
                               <div class="clearfix"></div>
                           </div>
                          <div class="clearfix"></div>
+                      
                      </div>
+                     
+                    {% endif %}                       
                 {% endfor %}
 
 

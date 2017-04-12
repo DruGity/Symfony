@@ -57,6 +57,31 @@ myshop.guzzle_client_rest:
     path: client/rest
     defaults: {_controller: MyShopDefaultBundle:Default:guzzleClient}
 
+myshop.registration:
+    path: customer/regestration
+    defaults: {_controller: MyShopDefaultBundle:Customer:registration}
+
+myshop.login:
+    path: customer/login
+    defaults: {_controller: MyShopDefaultBundle:Customer:login}
+
+myshop.basket:
+    path: /basket
+    defaults: {_controller: MyShopDefaultBundle:Basket:index}
+
+myshop.order_confirm:
+    path: /basket/confirm
+    defaults: { _controller: MyShopDefaultBundle:Basket:confirm }
+
+myshop.add_product_to_basket:
+    path: /basket/product/{idProduct}/add
+    defaults: { _controller: MyShopDefaultBundle:Basket:addProductToBasket }
+    requirements:
+        idProduct: \d+
+
+myshop.logout:
+    path: customer/logout
+
 myshop.page:
     path:  /page/{pageKey}
     defaults: {_controller: MyShopDefaultBundle:Page:index} #этот роут держать на последнем месте

@@ -1,0 +1,17 @@
+{% extends "@MyShopDefault/layout.html.twig" %}
+
+{% block body %}
+
+    <fieldset>
+        <legend>Вход для постоянных покупателей</legend>
+        <form action="{{ path('myshop.login') }}" method="post">
+            Email:
+            <input name="_username" value="" type="text"><br>
+            Пароль:
+            <input name="_password" type="password"><br>
+            <button type="submit">Войти</button>
+            <a href="{{ path('myshop.registration') }}">Регистрация</a>
+        </form>
+    </fieldset>
+        
+{% endblock %}
