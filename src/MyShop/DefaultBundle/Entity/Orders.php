@@ -189,6 +189,23 @@ class Orders
         return $this->products;
     }
 
+    public function getSum()
+    {
+        return $this->price * $this->count;
+    }
+
+/*    public function getFullSum()
+    {
+        foreach ($this->$products as $product)
+        {   
+            $a = $product->getSum();
+            $a =  array($b);
+            $fullSum = array_sum($b);
+        }
+
+        return $fullSum;
+    }*/
+
     /**
      * Set customer
      *

@@ -338,4 +338,9 @@ class Product
         return $this->photos;
     }
 
+    public function getCount()
+    {
+    return $this->count;
+    }
+
 }

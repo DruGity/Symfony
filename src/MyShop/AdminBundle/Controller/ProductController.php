@@ -73,8 +73,14 @@ class ProductController extends Controller
 
         $paginator = $this->get("knp_paginator");
         $productList = $paginator->paginate($query, $page, 4);
+        $count = 0;
+        foreach ($productList as $product) {
+            $count = $count + 1;
+        }
 
-		return ["productList" => $productList]; 
+		return ["productList" => $productList,
+            "count" => $count
+        ]; 
 	}
 
     public function deleteAjaxAction($id)

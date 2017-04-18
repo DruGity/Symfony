@@ -24,7 +24,7 @@ class PreDataLoader
 		$user = new User();
 		$user->setEmail($randNumber . "user@gmail.com ");
 		$user->setPassword("9438" . $randNumber);
-		$user->setUsername("abdul" . $randNumber);
+		$user->setUsername("name" . $randNumber);
 
 		$this->manager->persist($user);
 		$this->manager->flush();
@@ -58,7 +58,6 @@ class PreDataLoader
 
 		$category = new Category();
 		$category->setName("Name" . $randNumber);
-		$category->setIconFileName("test" . $randNumber);
 
 		$this->manager->persist($category);
 		$this->manager->flush();

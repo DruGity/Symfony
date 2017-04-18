@@ -3,11 +3,9 @@
 {% block body %}
     <div>
         <b>Корзина товаров</b><br />
-
         <ul>
         {% for product in order.products %}
-            {% set sum = product.price * product.count %}
-            <li>{{ product.model }} - {{ product.price }} x {{ product.count }} = {{ sum }}</li>
+            <li>{{ product.model }} - {{ product.price }} x {{ product.count }} = {{ product.sum }}</li>
         {% endfor %}
         </ul>
 

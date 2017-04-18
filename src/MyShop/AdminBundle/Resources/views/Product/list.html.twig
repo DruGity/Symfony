@@ -7,12 +7,6 @@
    <div class="w_content">
         <div class="women">
 
-                    {% set counter = 0 %}
-
-                    {% for product in productList %}
-                    {% set counter = counter + 1 %}
-                    {% endfor %}
-
                     <script type="application/javascript" src="{{ asset('bundles/myshopadmin/jquery-3.2.0.min.js') }}"></script>
                     <script type="application/javascript">
                         function del(id)
@@ -28,7 +22,7 @@
             <a href="{{ path("my_shop_admin.products_export_csv")}}"><h4>Скачать .csw &nbsp; &nbsp;</h4></a>
             <a href="{{ path("my_shop_admin.products_import_csv")}}"><h4>Загрузить .csw</h4></a>
             <ul class="w_nav">
-                        <li><a href="#"><h4>Количество товаров - <span>{{ counter }}</span> </h4></a></li>
+                        <li><a href="#"><h4>Количество товаров - <span>{{ count }}</span> </h4></a></li>
                         <div class="clear"></div>   
              </ul>
              <div class="clearfix"></div>   

@@ -1,0 +1,13 @@
+{% extends "@MyShopAdmin/layout.html.twig" %}
+
+{% block body %}
+<div>
+{% for order in ordersList if order.status == 2 %}
+<h3>Заказчик:</h3>{{ order.phoneNumber }}, {{ order.deliveryType }}, {{ order.customer }}, {{ order.dateCreatedAt.format(" H:i:s d.m.Y") }} <br />
+<h3>Товары:</h3>
+{% for product in order.products %}
+        <li><b>{{ product.model }}</b> {{ product.price }}x{{ product.count }} = {{ product.sum }}</li>
+    {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

@@ -156,6 +156,20 @@ class OrdersProduct
         return $this->count;
     }
 
+    public function getSum()
+    {
+        return $this->price * $this->count;
+    }
+
+    public function getFullSum()
+    {
+        foreach ($products as $product)
+        {
+            $fullSum = array_sum($product->getSum());
+        }
+        return $fullSum;
+    }
+
     /**
      * Set order
      *
@@ -179,4 +193,5 @@ class OrdersProduct
     {
         return $this->order;
     }
+
 }

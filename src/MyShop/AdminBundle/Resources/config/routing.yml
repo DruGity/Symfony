@@ -137,6 +137,10 @@ my_shop_admin.page_add:
     path:   /page/add
     defaults: { _controller: MyShopAdminBundle:Page:add }
 
+myshop.admin_order_list:
+    path: /orders
+    defaults: {_controller: MyShopAdminBundle:Orders:index}
+
 my_shop_admin.page_edit:
     path:   /page/{id}/edit
     defaults: { _controller: MyShopAdminBundle:Page:edit }

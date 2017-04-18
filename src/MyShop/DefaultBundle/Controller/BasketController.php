@@ -22,8 +22,23 @@ class BasketController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $customer = $this->getUser();
         $order = $manager->getRepository('MyShopDefaultBundle:Orders')->getOrCreateOrder($customer);
+/*        $products = $order->getProducts();
+        $product = $products[0];*/
 
-        return ['order' => $order];
+/*        $price = $products[0]->getPrice();
+        $count = $products[0]->getCount();
+        $sum = $products[0]->getSum();
+        $product = $products[0];*/
+
+
+/*        $a = $product;
+        $b = array($a->getPrice());
+        $c = array_sum($b);*/
+
+        return [
+        'order' => $order
+
+        ];
     }
 
     /**

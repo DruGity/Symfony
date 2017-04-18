@@ -50,12 +50,14 @@
 			</div>
 			{% if is_granted('ROLE_CUSTOMER') %}
 			  <div class="cart">
-			  					{{ render(controller('MyShopDefaultBundle:Basket:index')) }}
+			  					
 			  	   <p><span>Корзина:</span><div id="dd" class="wrapper-dropdown-2"> 0 Товаров - $0.00
 			  	   	<ul class="dropdown">
 							<li>У вас нет товаров в корзине</li>
 					</ul></div></p>
+								  {{ render(controller('MyShopDefaultBundle:Basket:index')) }}
 			  </div>
+
 			{% endif %}
 	 <div class="clear"></div>
   </div>
