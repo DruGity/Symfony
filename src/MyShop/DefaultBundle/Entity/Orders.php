@@ -16,6 +16,8 @@ class Orders
     const STATUS_OPEN = 1;
     const STATUS_DONE = 2;
     const STATUS_REJECT = 3;
+    const STATUS_CONFIRMED = 1;
+    const STATUS_UNCONFIRMED = 2;
 
     /**
      * @var int
@@ -39,6 +41,13 @@ class Orders
      * @ORM\Column(name="status", type="integer")
      */
     private $status;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="confirm", type="integer")
+     */
+    private $confirm;
 
     /**
      * @var string
@@ -76,6 +85,7 @@ class Orders
     {
         $this->setDateCreatedAt(new \DateTime("now"));
         $this->setStatus(self::STATUS_OPEN);
+        $this->setConfirmStatus(self::STATUS_UNCONFIRMED);
         $this->products = new ArrayCollection();
     }
 
@@ -131,11 +141,35 @@ class Orders
     }
 
     /**
+     * Set confirm
+     *
+     * @param integer $confirm
+     *
+     * @return Orders
+     */
+    public function setConfirmStatus($confirm)
+    {
+        $this->confirm = $confirm;
+
+        return $this;
+    }
+
+    /**
+     * Get confirm
+     *
+     * @return integer
+     */
+    public function getConfirmStatus()
+    {
+        return $this->confirm;
+    }
+
+    /**
      * Set status
      *
      * @param integer $status
      *
-     * @return CustomerOrder
+     * @return Orders
      */
     public function setStatus($status)
     {
@@ -157,9 +191,9 @@ class Orders
     /**
      * Add product
      *
-     * @param \MyShop\DefaultBundle\Entity\OrderProduct $product
+     * @param \MyShop\DefaultBundle\Entity\OrdersProduct $product
      *
-     * @return CustomerOrder
+     * @return Orders
      */
     public function addProduct(\MyShop\DefaultBundle\Entity\OrderProduct $product)
     {
@@ -172,7 +206,7 @@ class Orders
     /**
      * Remove product
      *
-     * @param \MyShop\DefaultBundle\Entity\OrderProduct $product
+     * @param \MyShop\DefaultBundle\Entity\OrdersProduct $product
      */
     public function removeProduct(\MyShop\DefaultBundle\Entity\OrderProduct $product)
     {
@@ -211,7 +245,7 @@ class Orders
      *
      * @param \MyShop\DefaultBundle\Entity\Customer $customer
      *
-     * @return CustomerOrder
+     * @return Orders
      */
     public function setCustomer(\MyShop\DefaultBundle\Entity\Customer $customer = null)
     {

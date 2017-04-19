@@ -141,6 +141,12 @@ myshop.admin_order_list:
     path: /orders
     defaults: {_controller: MyShopAdminBundle:Orders:index}
 
+myshop.admin_confirm_order:
+    path: /order/{id}/confirm
+    defaults: {_controller: MyShopAdminBundle:Orders:confirm}
+    requirements:
+        id: \d+
+
 my_shop_admin.page_edit:
     path:   /page/{id}/edit
     defaults: { _controller: MyShopAdminBundle:Page:edit }

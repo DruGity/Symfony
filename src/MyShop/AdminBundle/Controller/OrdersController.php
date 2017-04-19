@@ -8,6 +8,8 @@ use MyShop\DefaultBundle\Entity\OrdersProduct;
 use MyShop\DefaultBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrdersController extends Controller
 {
@@ -24,6 +26,25 @@ class OrdersController extends Controller
 
         return [
         'ordersList' => $ordersList
+        ];
+    }
+
+    public function confirmAction(Request $request, $id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $order = $manager->getRepository('MyShopDefaultBundle:Orders')->find($id);
+
+        if ($request->isMethod("POST"))
+        {
+            $order->setConfirmStatus(Orders::STATUS_CONFIRMED);
+            $manager->persist($order);
+            $manager->flush();
+
+            return $this->redirectToRoute("myshop.admin_order_list");
+        }
+
+        return [
+            'order' => $order
         ];
     }
 }
