@@ -33,6 +33,7 @@
 				<ul>
 					{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 						<li><a href="{{ path('myshop.logout') }}">Выйти</a></li>
+						<li><a href="{{ path('myshop.orders_history') }}">История заказов</a></li>
 					{% else %}
 						<li><a href="{{ path('myshop.registration') }}">Регистрация</a></li>
 						<li><a href="{{ path('myshop.login') }}">Войти</a></li>
@@ -49,14 +50,12 @@
 				<a href="{{ path("myshop.main_page")}}"><img src="/images/logo.png" alt="" /></a>
 			</div>
 			{% if is_granted('ROLE_CUSTOMER') %}
-			  <div class="cart">
-			  					
-			  	   <p><span>Корзина:</span><div id="dd" class="wrapper-dropdown-2"> 0 Товаров - $0.00
-			  	   	<ul class="dropdown">
-							<li>У вас нет товаров в корзине</li>
-					</ul></div></p>
-								  {{ render(controller('MyShopDefaultBundle:Basket:index')) }}
-			  </div>
+			{% block cart %}
+					{{ render(controller('MyShopDefaultBundle:Basket:index')) }}
+			{% endblock %}
+			  
+								  
+			  
 
 			{% endif %}
 	 <div class="clear"></div>

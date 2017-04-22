@@ -73,11 +73,32 @@ myshop.order_confirm:
     path: /basket/confirm
     defaults: { _controller: MyShopDefaultBundle:Basket:confirm }
 
+myshop.orders_history:
+    path: /orders/history/
+    defaults: { _controller: MyShopDefaultBundle:Basket:historyOrder }
+
+myshop.products_in_history:
+    path: /orders/{id}/products/
+    defaults: { _controller: MyShopDefaultBundle:Basket:orderProducts }
+    requirements:
+        id: \d+
+
 myshop.add_product_to_basket:
     path: /basket/product/{idProduct}/add
     defaults: { _controller: MyShopDefaultBundle:Basket:addProductToBasket }
     requirements:
         idProduct: \d+
+        
+myshop.basket_recalculation:
+    path: /basket/recalculation
+    defaults: { _controller: MyShopDefaultBundle:Basket:recalculationCurrentOrder }
+    methods: [POST]
+
+myshop.remove_product_from_basket:
+    path: /basket/product/{id}/remove
+    defaults: { _controller: MyShopDefaultBundle:Basket:removeProductFromBasket }
+    requirements:
+        id: \d+
 
 myshop.logout:
     path: customer/logout

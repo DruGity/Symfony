@@ -44,12 +44,9 @@
 			<div class="logo">
 				<a href="{{ path("myshop.main_page")}}"><img src="/images/logo.png" alt="" /></a>
 			</div>
-			  <div class="cart">
-			  	   <p><span>Корзина:</span><div id="dd" class="wrapper-dropdown-2"> 0 Товаров - $0.00
-			  	   	<ul class="dropdown">
-							<li>У вас нет товаров в корзине</li>
-					</ul></div></p>
-			  </div>
+			{% block cart %}
+			{% endblock %}
+			  
 	 <div class="clear"></div>
   </div>
 	<div class="header_bottom">

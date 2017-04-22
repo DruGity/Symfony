@@ -195,7 +195,7 @@ class Orders
      *
      * @return Orders
      */
-    public function addProduct(\MyShop\DefaultBundle\Entity\OrderProduct $product)
+    public function addProduct(\MyShop\DefaultBundle\Entity\OrdersProduct $product)
     {
         $product->setOrder($this);
         $this->products[] = $product;
@@ -208,7 +208,7 @@ class Orders
      *
      * @param \MyShop\DefaultBundle\Entity\OrdersProduct $product
      */
-    public function removeProduct(\MyShop\DefaultBundle\Entity\OrderProduct $product)
+    public function removeProduct(\MyShop\DefaultBundle\Entity\OrdersProduct $product)
     {
         $this->products->removeElement($product);
     }
@@ -228,17 +228,26 @@ class Orders
         return $this->price * $this->count;
     }
 
-/*    public function getFullSum()
+    public function getTotalPrice()
     {
-        foreach ($this->$products as $product)
-        {   
-            $a = $product->getSum();
-            $a =  array($b);
-            $fullSum = array_sum($b);
+        /** @var OrderProduct $product */
+        $total = 0;
+        foreach ($this->products as $product) {
+            $total = $total + ( $product->getPrice() * $product->getCount());
         }
 
-        return $fullSum;
-    }*/
+        return $total;
+    }
+
+    public function getTotalCount()
+    {
+        $totalCount = 0;
+        foreach ($this->products as $product) {
+            $totalCount = $totalCount + $product->getCount();
+        }
+
+        return $totalCount;
+    }
 
     /**
      * Set customer

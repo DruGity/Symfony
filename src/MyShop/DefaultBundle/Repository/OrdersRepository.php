@@ -24,6 +24,8 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
             'status' => Orders::STATUS_OPEN
         ])->getOneOrNullResult();
 
+
+
         if ($order == null)
         {
             $order = new Orders();
@@ -31,6 +33,16 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
             $manager->persist($customer);
             $manager->flush();
         }
+
+        $dateCreatedOrder = $order->getDateCreatedAt();
+
+       $res = $dateCreatedOrder->diff(new \DateTime("now"));
+       if ($res->h > 24) {
+           $order->setStatus(CustomerOrder::STATUS_REJECT);
+           $manager->persist($order);
+           $manager->flush();
+           $order = null;
+       }
 
         return $order;
     }

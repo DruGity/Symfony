@@ -1,0 +1,35 @@
+{% extends "@MyShopDefault/layout.html.twig" %}
+
+{% block body %}
+    <div>
+        <b>История ваших заказов:</b><br />
+
+        <table border="1">
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.dateCreatedAt.format("H:i d.m.Y") }}&emsp;</td>
+                <td>{{ order.phoneNumber }}&emsp;</td>
+                <td>
+                    {% if order.status == 1 %}
+                        в процессе &emsp;
+                    {% elseif order.status == 2 %}
+                        обработан &emsp;
+                    {% else %}
+                        отклонен &emsp;
+                    {% endif %}
+                </td>
+                <td>
+                    {{ order.getTotalPrice() }}$&emsp;
+                </td>
+                <td>
+                    <a href="{{ path('myshop.products_in_history', {id:order.id}) }}">Просмотреть</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+
+    </div>
+    <!-- constant("STATUS_DONE", order)
+constant("\\MyShop\\DefaultBundle\\Entity\\Orders::STATUS_OPEN")    Задание статуса через константы-->
+{% endblock %}
+

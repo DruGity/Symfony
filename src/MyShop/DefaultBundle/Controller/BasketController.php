@@ -22,23 +22,72 @@ class BasketController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $customer = $this->getUser();
         $order = $manager->getRepository('MyShopDefaultBundle:Orders')->getOrCreateOrder($customer);
-/*        $products = $order->getProducts();
-        $product = $products[0];*/
-
-/*        $price = $products[0]->getPrice();
-        $count = $products[0]->getCount();
-        $sum = $products[0]->getSum();
-        $product = $products[0];*/
-
-
-/*        $a = $product;
-        $b = array($a->getPrice());
-        $c = array_sum($b);*/
 
         return [
         'order' => $order
 
         ];
+    }
+
+    /**
+     * @Template()
+    */
+    public function historyOrderAction()
+    {
+        $customer = $this->getUser();
+        $orders = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Orders")->findBy(["customer" => $customer]);
+        return ['orders' => $orders];
+    }
+
+    /**
+    * @Template()
+    */
+   public function orderProductsAction($id)
+   {
+       $order = $this->getDoctrine()->getRepository("MyShopDefaultBundle:Orders")->find($id);
+       if ($order == null) {
+           throw $this->createNotFoundException();
+       }
+       return ['order' => $order];
+   }
+
+   public function removeProductFromBasketAction($id)
+    {   $orderProduct = $this->getDoctrine()->getRepository("MyShopDefaultBundle:OrdersProduct")->find($id);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($orderProduct);
+        $manager->flush();
+
+        return $this->redirectToRoute("myshop.order_confirm");
+    }
+    public function recalculationCurrentOrderAction(Request $request)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $customer = $this->getUser();
+        $order = $manager->getRepository('MyShopDefaultBundle:Orders')->getOrCreateOrder($customer);
+
+        $products = $order->getProducts();
+        /** @var OrderProduct $product */
+        foreach ($products as $product)
+        {
+            $key = "prod_" . $product->getId();
+            $productCount = $request->get($key);
+            $productCount = intval($productCount);
+
+            if ($productCount < 0) {
+                $product->setCount(1);
+            }
+            elseif ($productCount == 0) {
+                $this->removeProductFromBasketAction($product);
+            }
+            else {
+                $product->setCount($productCount);
+            }
+        }
+
+        $manager->persist($order);
+        $manager->flush();
+        
+        return $this->redirectToRoute("myshop.order_confirm");
     }
 
     /**
@@ -103,7 +152,7 @@ class BasketController extends Controller
 
             $manager->persist($productOrder);
             $manager->flush();
-            return $this->redirectToRoute("myshop.main_page");
+            return $this->redirectToRoute("myshop.product_list");
         }
     }
 }

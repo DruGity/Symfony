@@ -22,6 +22,10 @@ class ProductType extends AbstractType
             ->add('model', TextType::class, [
                 'label' => 'Модель товара'
             ])
+/*            ->add('status', ChoiceType::class, [
+                'Есть в наличии' => '1',
+                'Нет в наличии' => '2',*/
+            ])
             ->add('price', NumberType::class, [
                 "label" => 'Цена товара'
             ])
